@@ -2,7 +2,7 @@
 
 ## Description
 
-A Pac Man game where Pac Man should eat all the food (dots) placed on the game board, without being hit by a ghost.
+A Pac Man game where Pac Man should eat all the candy (dots) placed on the game board, without being hit by a ghost.
 
 
 ## MVP(DOM - CANVAS)
@@ -89,8 +89,8 @@ class PacMan {
 class Ghost {
   x = 0;
   y = 0;
-  speedX = 0;
-  speedY = 0;
+  directionX = 0;
+  directionY = 0;
   image = null;
   
   constructor(x, y, canvas) {}
@@ -104,7 +104,7 @@ class Ghost {
 ```
 
 
-### food.js
+### candy.js
 ```
 // A ghost does not have lives
 class Candy {
