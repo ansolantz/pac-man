@@ -17,12 +17,13 @@ Limitations:
 
 
 ## Backlog
-  - Images.
-  - Inner walls.
-  - Graphics.
-  - Sound effects.
-  - Levels.
-  - Responsive.
+  - Images
+  - ES5
+  - Inner walls
+  - Graphics
+  - Sound effects
+  - Levels
+  - Responsive
 
 
 ## Data structure
@@ -143,12 +144,12 @@ Task definition in order of priority
  - Create Splash screen
  - Create Game Screen
  - Create Game Over Screen
- - Create the files for main.js, game.js and pacman.js
+ - Create the files index.html, style.css, main.js, game.js, pacman.js and ghost.js
  - Create Loop
- - Make sure pacman can move in all 4 directions
+ - Make sure PacMan can move in all 4 directions
  - Make sure PacMan is restricted by the borders of the playfield.
- - PacMan can eat a candy and it disapears
- - PacMan get a point when a candy is eaten
+ - PacMan can eat a candy and it disappears.
+ - PacMan get a point when a candy is eaten.
  - If PacMan eats all the candy, the game is finished (PacMan wins)
  - Add ghosts
  - If PacMan hits or is hit by a ghost, he dies and the game is over (PacMan looses)
@@ -158,7 +159,7 @@ Task definition in order of priority
 
 
 ### Trello
-[Link url](https://trello.com)
+[Link url](https://trello.com/b/z2mpVWIB/pacman)
 
 
   ### Git
