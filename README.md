@@ -64,6 +64,7 @@ class PacMan {
   canvas;
   lives = 0
   direction = '';
+  image = null;
 
   constructor(x, y, canvas) {
   }
@@ -87,8 +88,10 @@ class PacMan {
 class Ghost {
   x = 0;
   y = 0;
-  direction = '';
-
+  speedX = 0;
+  speedY = 0;
+  image = null;
+  
   constructor(x, y, canvas) {}
 
   draw() {}
@@ -96,8 +99,6 @@ class Ghost {
   update() {}
 
   checkWall() {}
-
-  setDirection(newDirection) {}
 }
 ```
 
