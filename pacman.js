@@ -13,9 +13,10 @@ class PacMan {
   moveX = 0;
   moveY = 0;
   pacManRadius = 16;
+  isMouthClosing = true;
 
   animationCounter = 0;
-  animationMaxValue = 14;
+  animationMaxValue = 0.25;  //Controles the animation of PacMans mouth
 
   imgId = '';
   imgHeight = '';
@@ -44,8 +45,6 @@ class PacMan {
     // this.imgHeight = parseInt(this.img.getAttribute('height'));
     // this.imgWidth = parseInt(this.img.getAttribute('width'));
 
-    // console.log("Image widthXXXXX: ", this.img.width);
-    // console.log("Image height XXXXX: ", this.img.height);
     // console.log("Image height: ", this.imgHeight);
     // console.log("Image width: ", this.imgWidth);
   }
@@ -70,66 +69,85 @@ class PacMan {
     }
     this.y = this.y + this.moveY * this.speed;
     this.x = this.x + this.moveX * this.speed;
-
   }
 
   draw() {
     //this.ctx.drawImage(this.img, this.x, this.y, 50, 50);
-
-
     // ctx.arc(x, y, radius, startAngle, endAngle)
     //  Math.PI * 2 - Full circle    Math.PI * 1 -  Half circle
 
+    let arcStart = 0.25;
+    let arcEnd = 1.75;
 
-
-    if (this.animationCounter < this.animationMaxValue / 2) {
-      //Pac man close mouth
-      this.ctx.beginPath();
-      this.ctx.arc(this.x, this.y, this.pacManRadius, 2 * Math.PI, false);
-      this.ctx.fillStyle = "rgb(255, 255, 0)";
-      this.ctx.fill();
-      this.ctx.beginPath();
-
-      this.ctx.lineTo(this.x, this.y);
-      this.ctx.fillStyle = "rgb(255, 255, 0)";
-      this.ctx.fill();
-
-      //eye
-      this.ctx.beginPath();
-      this.ctx.arc(this.x - 2, this.y - 8, 2.5, 0, 2 * Math.PI);
-      this.ctx.fillStyle = "rgb(0, 0, 0)";
-      this.ctx.fill();
-
-
+    this.ctx.beginPath();
+    if (this.isMouthClosing) {
+      this.ctx.arc(this.x, this.y, this.pacManRadius, (arcStart - this.animationCounter) * Math.PI,
+        (arcEnd + this.animationCounter) * Math.PI);
     } else {
-      //Pac Man open mouth
-      this.ctx.beginPath();
-      this.ctx.arc(this.x, this.y, this.pacManRadius, 0.25 * Math.PI, 1.25 * Math.PI, false);
-      this.ctx.fillStyle = "rgb(255, 255, 0)";
-      this.ctx.fill();
-      this.ctx.beginPath();
-      this.ctx.arc(this.x, this.y, this.pacManRadius, 0.75 * Math.PI, 1.75 * Math.PI, false);
-      this.ctx.fill();
-      this.ctx.beginPath();
-      this.ctx.arc(this.x - 3, this.y - 8, 3, 0, 2 * Math.PI, false);
-      this.ctx.fillStyle = "rgb(0, 0, 0)";
-      this.ctx.fill();
+      arcStart = arcStart - this.animationMaxValue;
+      arcEnd = arcEnd + this.animationMaxValue;
+
+      this.ctx.arc(this.x, this.y, this.pacManRadius, (arcStart + this.animationCounter) * Math.PI,
+        (arcEnd - this.animationCounter) * Math.PI);
 
     }
-    this.animationCounter++;
-    // if (this.animationCounter === 16) {
-    //   this.animationCounter = 0;
-    // }
-    this.animationCounter = this.animationCounter % this.animationMaxValue;
+    this.ctx.lineTo(this.x, this.y);
+    this.ctx.fillStyle = "rgb(255, 255, 0)";
+    this.ctx.fill();
+
+    this.animationCounter = this.animationCounter + 0.01;
+    if (this.animationCounter >= this.animationMaxValue) {
+      this.animationCounter = 0;
+
+      // if (this.isMouthClosing) {
+      //   this.isMouthClosing = false;
+      // } else{
+      //   this.isMouthClosing = true;
+      // }
+      this.isMouthClosing = !this.isMouthClosing;
+    }
+
+    // //eye
+    this.ctx.beginPath();
+    this.ctx.arc(this.x, this.y - 8, 2.5, 0, 2 * Math.PI);
+    this.ctx.fillStyle = "rgb(0, 0, 0)";
+    this.ctx.fill();
 
 
+    //this.ctx.arc(this.x, this.y, this.pacManRadius, 0.25 * Math.PI, 1.75 * Math.PI);
+    // this.ctx.arc(this.x, this.y, this.pacManRadius, 0.05 * Math.PI, 1.95 * Math.PI);
 
+    //   if (this.animationCounter < this.animationMaxValue / 2) {
+    //     //Pac man close mouth
+    //     this.ctx.beginPath();
+    //     this.ctx.arc(this.x, this.y, this.pacManRadius, 2 * Math.PI, false);
+    //     this.ctx.fillStyle = "rgb(255, 255, 0)";
+    //     this.ctx.fill();
+    //     this.ctx.beginPath();
 
-    // this.ctx.fillStyle = 'blue';
-    // this.ctx.fillRect(this.x - this.size / 2, this.y - this.size / 2, this.size, this.size);
+    //   } else {
+    //     //Pac Man open mouth
+    //     this.ctx.beginPath();
+    //     this.ctx.arc(this.x, this.y, this.pacManRadius, 0.25 * Math.PI, 1.25 * Math.PI, false);
+    //     this.ctx.fillStyle = "rgb(255, 255, 0)";
+    //     this.ctx.fill();
+    //     this.ctx.beginPath();
+    //     this.ctx.arc(this.x, this.y, this.pacManRadius, 0.75 * Math.PI, 1.75 * Math.PI, false);
+    //     this.ctx.fill();
+    //     this.ctx.beginPath();
+    //     this.ctx.arc(this.x - 3, this.y - 8, 3, 0, 2 * Math.PI, false);
+    //     this.ctx.fillStyle = "rgb(0, 0, 0)";
+    //     this.ctx.fill();
+    //   }
+    //   this.animationCounter++;
+    //   // if (this.animationCounter === 16) {
+    //   //   this.animationCounter = 0;
+    //   // }
+    //   this.animationCounter = this.animationCounter % this.animationMaxValue;
+    //   // this.ctx.fillStyle = 'blue';
+    //   // this.ctx.fillRect(this.x - this.size / 2, this.y - this.size / 2, this.size, this.size);
 
   }
-
 
   checkWall() {
     //  Check wall collision  
