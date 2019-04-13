@@ -67,7 +67,8 @@ function main() {
     restartButton.addEventListener('click', buildGameScreen);
   }
 
-  buildSplashScreen();
+  //buildSplashScreen();  //Hiding splash while developing..
+  buildGameScreen();
 }
 
 window.addEventListener('load', main);

@@ -12,11 +12,13 @@ class PacMan {
   ctx = null;
   moveX = 0;
   moveY = 0;
-  pacManRadius = 20;
+  pacManRadius = 16;
+
+  animationCounter = 0;
+  animationMaxValue = 14;
 
   imgId = '';
   imgHeight = '';
-
   img = document.createElement('img');
 
   constructor(x, y, canvas) {
@@ -39,8 +41,8 @@ class PacMan {
     //console.log('elementbyid ', document.getElementById('pacman').style.height);
     // to do: check width, height on img! 
 
-    this.imgHeight = parseInt(this.img.getAttribute('height'));
-    this.imgWidth = parseInt(this.img.getAttribute('width'));
+    // this.imgHeight = parseInt(this.img.getAttribute('height'));
+    // this.imgWidth = parseInt(this.img.getAttribute('width'));
 
     // console.log("Image widthXXXXX: ", this.img.width);
     // console.log("Image height XXXXX: ", this.img.height);
@@ -78,28 +80,48 @@ class PacMan {
     // ctx.arc(x, y, radius, startAngle, endAngle)
     //  Math.PI * 2 - Full circle    Math.PI * 1 -  Half circle
 
-    //Pac Man open mouth
-    // this.ctx.beginPath();
-    // this.ctx.arc(this.x, this.y, this.pacManRadius, 0.25 * Math.PI, 1.25 * Math.PI, false);
-    // this.ctx.fillStyle = "rgb(255, 255, 0)";
-    // this.ctx.fill();
-    // this.ctx.beginPath();
-    // this.ctx.arc(this.x, this.y, this.pacManRadius, 0.75 * Math.PI, 1.75 * Math.PI, false);
-    // this.ctx.fill();
-    // this.ctx.beginPath();
-    // this.ctx.arc(this.x - 3, this.y - 8, 3, 0, 2 * Math.PI, false);
-    // this.ctx.fillStyle = "rgb(0, 0, 0)";
-    // this.ctx.fill();
 
-    // Pac man close mouth
-    this.ctx.beginPath();
-    this.ctx.arc(this.x, this.y, this.pacManRadius, 2 * Math.PI, false);
-    this.ctx.fillStyle = "rgb(255, 255, 0)";
-    this.ctx.fill();
-    this.ctx.beginPath();
-    this.ctx.arc(this.x - 3, this.y - 8, 3, 0, 2 * Math.PI, false);
-    this.ctx.fillStyle = "rgb(0, 0, 0)";
-    this.ctx.fill();
+
+    if (this.animationCounter < this.animationMaxValue / 2) {
+      //Pac man close mouth
+      this.ctx.beginPath();
+      this.ctx.arc(this.x, this.y, this.pacManRadius, 2 * Math.PI, false);
+      this.ctx.fillStyle = "rgb(255, 255, 0)";
+      this.ctx.fill();
+      this.ctx.beginPath();
+
+      this.ctx.lineTo(this.x, this.y);
+      this.ctx.fillStyle = "rgb(255, 255, 0)";
+      this.ctx.fill();
+
+      //eye
+      this.ctx.beginPath();
+      this.ctx.arc(this.x - 2, this.y - 8, 2.5, 0, 2 * Math.PI);
+      this.ctx.fillStyle = "rgb(0, 0, 0)";
+      this.ctx.fill();
+
+
+    } else {
+      //Pac Man open mouth
+      this.ctx.beginPath();
+      this.ctx.arc(this.x, this.y, this.pacManRadius, 0.25 * Math.PI, 1.25 * Math.PI, false);
+      this.ctx.fillStyle = "rgb(255, 255, 0)";
+      this.ctx.fill();
+      this.ctx.beginPath();
+      this.ctx.arc(this.x, this.y, this.pacManRadius, 0.75 * Math.PI, 1.75 * Math.PI, false);
+      this.ctx.fill();
+      this.ctx.beginPath();
+      this.ctx.arc(this.x - 3, this.y - 8, 3, 0, 2 * Math.PI, false);
+      this.ctx.fillStyle = "rgb(0, 0, 0)";
+      this.ctx.fill();
+
+    }
+    this.animationCounter++;
+    // if (this.animationCounter === 16) {
+    //   this.animationCounter = 0;
+    // }
+    this.animationCounter = this.animationCounter % this.animationMaxValue;
+
 
 
 
