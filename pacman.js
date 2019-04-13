@@ -7,7 +7,7 @@ class PacMan {
   y = 0;
   canvas;
   lives = 0
-  direction = '';
+  direction = null;
   speed = 2;  //speed 1, 2, 4, 8, 32
   ctx = null;
   moveX = 0;
@@ -16,7 +16,7 @@ class PacMan {
   isMouthClosing = true;
 
   animationCounter = 0;
-  animationMaxValue = 0.25;  //Controles the animation of PacMans mouth
+  animationMaxValue = 0.24;  //Controles the animation of PacMans mouth
 
   imgId = '';
   imgHeight = '';
@@ -76,42 +76,81 @@ class PacMan {
     // ctx.arc(x, y, radius, startAngle, endAngle)
     //  Math.PI * 2 - Full circle    Math.PI * 1 -  Half circle
 
-    let arcStart = 0.25;
-    let arcEnd = 1.75;
+    let arcStart = 0;
+    let arcEnd = 0;
 
     this.ctx.beginPath();
-    if (this.isMouthClosing) {
+
+    if (this.direction === 'right') {
+      arcStart = 0.25;
+      arcEnd = 1.75;
+    } else if (this.direction === 'up') {
+      arcStart = 1.75;
+      arcEnd = 1.25;
+    } else if (this.direction === 'left') {
+      arcStart = 1.25;
+      arcEnd = 0.75;
+    } else if (this.direction === 'down') {
+      arcStart = 0.75;
+      arcEnd = 0.25;
+    } else {
+      //Staring case when no direction is set
+      arcStart = 0.15;
+      arcEnd = 1.85;
+    }
+
+    if (this.direction) {
+      if (this.isMouthClosing) {
+        this.ctx.arc(this.x, this.y, this.pacManRadius, (arcStart - this.animationCounter) * Math.PI,
+          (arcEnd + this.animationCounter) * Math.PI);
+      } else {
+        arcStart = arcStart - this.animationMaxValue;
+        arcEnd = arcEnd + this.animationMaxValue;
+
+        this.ctx.arc(this.x, this.y, this.pacManRadius, (arcStart + this.animationCounter) * Math.PI,
+          (arcEnd - this.animationCounter) * Math.PI);
+      }
+      this.ctx.lineTo(this.x, this.y);
+      this.ctx.fillStyle = "rgb(255, 255, 0)";
+      this.ctx.fill();
+
+      this.animationCounter = this.animationCounter + 0.01;
+      if (this.animationCounter >= this.animationMaxValue) {
+        this.animationCounter = 0;
+        // if (this.isMouthClosing) {
+        //   this.isMouthClosing = false;
+        // } else{
+        //   this.isMouthClosing = true;
+        // }
+        this.isMouthClosing = !this.isMouthClosing;
+      }
+
+    } else {
+
       this.ctx.arc(this.x, this.y, this.pacManRadius, (arcStart - this.animationCounter) * Math.PI,
         (arcEnd + this.animationCounter) * Math.PI);
-    } else {
-      arcStart = arcStart - this.animationMaxValue;
-      arcEnd = arcEnd + this.animationMaxValue;
 
-      this.ctx.arc(this.x, this.y, this.pacManRadius, (arcStart + this.animationCounter) * Math.PI,
-        (arcEnd - this.animationCounter) * Math.PI);
-
-    }
-    this.ctx.lineTo(this.x, this.y);
-    this.ctx.fillStyle = "rgb(255, 255, 0)";
-    this.ctx.fill();
-
-    this.animationCounter = this.animationCounter + 0.01;
-    if (this.animationCounter >= this.animationMaxValue) {
-      this.animationCounter = 0;
-
-      // if (this.isMouthClosing) {
-      //   this.isMouthClosing = false;
-      // } else{
-      //   this.isMouthClosing = true;
-      // }
-      this.isMouthClosing = !this.isMouthClosing;
+      this.ctx.lineTo(this.x, this.y);
+      this.ctx.fillStyle = "rgb(255, 255, 0)";
+      this.ctx.fill();
     }
 
-    // //eye
+
+
+    // Drawing packMan's eye ---------
+
     this.ctx.beginPath();
-    this.ctx.arc(this.x, this.y - 8, 2.5, 0, 2 * Math.PI);
+    if (this.direction === 'right' || this.direction === 'left') {
+      this.ctx.arc(this.x, this.y - 8, 2.5, 0, 2 * Math.PI);
+    } else if (this.direction === 'up' || this.direction === 'down') {
+      this.ctx.arc(this.x - 8, this.y, 2.5, 0, 2 * Math.PI);
+    } else {
+      this.ctx.arc(this.x, this.y - 8, 2.5, 0, 2 * Math.PI);
+    }
     this.ctx.fillStyle = "rgb(0, 0, 0)";
     this.ctx.fill();
+
+    //---------------------------------
 
 
     //this.ctx.arc(this.x, this.y, this.pacManRadius, 0.25 * Math.PI, 1.75 * Math.PI);
@@ -150,8 +189,6 @@ class PacMan {
   }
 
   checkWall() {
-    //  Check wall collision  
-
 
     if (this.direction === 'right') {
 
