@@ -15,7 +15,7 @@ function main() {
   function buildSplashScreen() {     // Building splash screen
     const splashScreen = buildDom(`
       <section>
-      <h1>- Pac Man - </h1>
+      <h2>Click startt o play</h2>
       <button class="start-button">Start</button>
       </section>
       `);

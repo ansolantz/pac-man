@@ -8,10 +8,11 @@ class PacMan {
   canvas;
   lives = 0
   direction = '';
-  speed = 1;
+  speed = 2;  //speed 1, 2, 4, 8, 32
   ctx = null;
   moveX = 0;
   moveY = 0;
+  pacManRadius = 20;
 
   imgId = '';
   imgHeight = '';
@@ -25,8 +26,8 @@ class PacMan {
     this.y = y;
     this.ctx = this.canvas.getContext('2d');
 
-    console.log("Canvas width is ", this.canvas.width);
-    console.log("Canvas height is ", this.canvas.height);
+    // console.log("Canvas width is ", this.canvas.width);
+    // console.log("Canvas height is ", this.canvas.height);
 
     this.img.src = 'img/pacman.gif';
 
@@ -41,16 +42,11 @@ class PacMan {
     this.imgHeight = parseInt(this.img.getAttribute('height'));
     this.imgWidth = parseInt(this.img.getAttribute('width'));
 
-    console.log("Image widthXXXXX: ", this.img.width);
-    console.log("Image height XXXXX: ", this.img.height);
-    console.log("Image height: ", this.imgHeight);
-    console.log("Image width: ", this.imgWidth);
+    // console.log("Image widthXXXXX: ", this.img.width);
+    // console.log("Image height XXXXX: ", this.img.height);
+    // console.log("Image height: ", this.imgHeight);
+    // console.log("Image width: ", this.imgWidth);
   }
-
-  draw() {
-    this.ctx.drawImage(this.img, this.x, this.y, 50, 50);
-  }
-
 
   update() {
 
@@ -75,21 +71,67 @@ class PacMan {
 
   }
 
+  draw() {
+    //this.ctx.drawImage(this.img, this.x, this.y, 50, 50);
+
+
+    // ctx.arc(x, y, radius, startAngle, endAngle)
+    //  Math.PI * 2 - Full circle    Math.PI * 1 -  Half circle
+
+    //Pac Man open mouth
+    // this.ctx.beginPath();
+    // this.ctx.arc(this.x, this.y, this.pacManRadius, 0.25 * Math.PI, 1.25 * Math.PI, false);
+    // this.ctx.fillStyle = "rgb(255, 255, 0)";
+    // this.ctx.fill();
+    // this.ctx.beginPath();
+    // this.ctx.arc(this.x, this.y, this.pacManRadius, 0.75 * Math.PI, 1.75 * Math.PI, false);
+    // this.ctx.fill();
+    // this.ctx.beginPath();
+    // this.ctx.arc(this.x - 3, this.y - 8, 3, 0, 2 * Math.PI, false);
+    // this.ctx.fillStyle = "rgb(0, 0, 0)";
+    // this.ctx.fill();
+
+    // Pac man close mouth
+    this.ctx.beginPath();
+    this.ctx.arc(this.x, this.y, this.pacManRadius, 2 * Math.PI, false);
+    this.ctx.fillStyle = "rgb(255, 255, 0)";
+    this.ctx.fill();
+    this.ctx.beginPath();
+    this.ctx.arc(this.x - 3, this.y - 8, 3, 0, 2 * Math.PI, false);
+    this.ctx.fillStyle = "rgb(0, 0, 0)";
+    this.ctx.fill();
+
+
+
+    // this.ctx.fillStyle = 'blue';
+    // this.ctx.fillRect(this.x - this.size / 2, this.y - this.size / 2, this.size, this.size);
+
+  }
+
+
   checkWall() {
     //  Check wall collision  
 
 
     if (this.direction === 'right') {
-      if ((this.x + this.imgWidth) >= this.canvas.width) {
+
+      console.log("Canvas width is ", this.canvas.width);
+      console.log("Canvas height is ", this.canvas.height);
+      console.log("x + pacman radius ", this.x + this.pacManRadius)
+      if (this.x + this.pacManRadius + this.speed >= parseInt(this.canvas.width)) {
         return true;
       }
     } else if (this.direction === 'up') {
-      this.moveY = -1;
+      if (this.y - this.pacManRadius <= 0) {
+        return true;
+      }
     } else if (this.direction === 'left') {
-      this.moveX = -1;
+      if (this.x - this.pacManRadius <= 0) {
+        return true;
+      }
     } else if (this.direction === 'down') {
-      if (this.y + this.imgHeight > this.canvas.height) {
-        return;
+      if (this.y + this.pacManRadius + this.speed >= parseInt(this.canvas.height)) {
+        return true;
       }
     }
 
