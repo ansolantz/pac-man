@@ -1,3 +1,8 @@
+@font-face {
+  font-family: "Pac Font";
+  src: url("fonts/PAC-FONT.TTF");
+}
+
 /* ---- reset ---- */
 
 html {
@@ -11,19 +16,23 @@ html {
 body {
   margin: 0;
   padding: 0;
+  background-color: #000000;
 }
 
 /* ---- typography ---- */
 
 body {
   color: #111;
-  font-family: Helvetica, Arial, sans-serif;
+  font-family: 'Courier New', Courier, monospace;
   font-size: 16px;
   line-height: 147%;
 }
 
 h1 {
+  font-family: "Pac Font", Impact;
   text-align: center;
+  color: Yellow;
+  font-size: 34px;
 }
 
 h2 {}
