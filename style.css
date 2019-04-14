@@ -16,7 +16,7 @@ html {
 body {
   margin: 0;
   padding: 0;
-  background-color: #000000;
+  /* background-color: #000000; */
 }
 
 /* ---- typography ---- */
@@ -29,7 +29,8 @@ body {
 }
 
 h1 {
-  font-family: "Pac Font", Impact;
+  /*font-family: "Pac Font", Impact;*/
+  font-family: Impact;
   text-align: center;
   color: Yellow;
   font-size: 34px;

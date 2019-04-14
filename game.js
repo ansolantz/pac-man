@@ -4,6 +4,7 @@
 class Game {
   pacman = null;
   ghosts = [];
+  levelNumber = 1;
   gameOver = false;
 
   constructor(canvas) {
@@ -13,6 +14,7 @@ class Game {
     this.ctx = this.canvas.getContext('2d');
     this.canvas = canvas;
     this.pacman = new PacMan(50, 50, this.canvas);
+    this.level = new Level(this.canvas, this.levelNumber);
 
 
     document.onkeydown = (event) => {
@@ -42,12 +44,14 @@ class Game {
 
     const loop = () => {
 
-      this.clearCanvas();
+
       this.updateCanvas();
+      this.clearCanvas();
       this.drawCanvas();
       this.checkCollisions();
 
       // console.log(this.pacman.direction)
+      // this.pacman.getPixelColorAtCoordinate();
 
       if (this.gameOver === false) {
         window.requestAnimationFrame(loop);
@@ -62,9 +66,11 @@ class Game {
 
   updateCanvas() {
     this.pacman.update();
+    // this.ghost.update();
   }
 
   drawCanvas() {
+    this.level.draw();
     this.pacman.draw();
   }
 

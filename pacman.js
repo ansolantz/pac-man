@@ -47,14 +47,26 @@ class PacMan {
 
     // console.log("Image height: ", this.imgHeight);
     // console.log("Image width: ", this.imgWidth);
+
+
   }
 
   update() {
 
-    if (this.checkWall()) {
-      console.log('has hit wall');
+    if (this.direction === null) {
       return;
     }
+
+    if (this.checkWall()) {
+      // console.log('has hit wall');
+      return;
+    }
+
+    if (!this.checkIfCanMove()) {
+      // console.log('has hit a line');
+      return;
+    }
+
     this.moveX = 0;
     this.moveY = 0;
 
@@ -71,7 +83,10 @@ class PacMan {
     this.x = this.x + this.moveX * this.speed;
   }
 
+
+
   draw() {
+
     //this.ctx.drawImage(this.img, this.x, this.y, 50, 50);
     // ctx.arc(x, y, radius, startAngle, endAngle)
     //  Math.PI * 2 - Full circle    Math.PI * 1 -  Half circle
@@ -113,6 +128,7 @@ class PacMan {
       this.ctx.lineTo(this.x, this.y);
       this.ctx.fillStyle = "rgb(255, 255, 0)";
       this.ctx.fill();
+      this.ctx.closePath();
 
       this.animationCounter = this.animationCounter + 0.01;
       if (this.animationCounter >= this.animationMaxValue) {
@@ -133,6 +149,7 @@ class PacMan {
       this.ctx.lineTo(this.x, this.y);
       this.ctx.fillStyle = "rgb(255, 255, 0)";
       this.ctx.fill();
+      this.ctx.closePath();
     }
 
 
@@ -149,8 +166,125 @@ class PacMan {
     }
     this.ctx.fillStyle = "rgb(0, 0, 0)";
     this.ctx.fill();
+    this.ctx.closePath();
 
     //---------------------------------
+
+
+  }
+
+  checkIfCanMove() {
+
+    if (this.direction === 'right') {
+      // Cutting out PacMan + speed right
+      const imageData = this.ctx.getImageData(this.x - this.pacManRadius, this.y - this.pacManRadius, (this.pacManRadius * 2) + this.speed, this.pacManRadius * 2);
+      const pixelArray = imageData.data;
+      const topRightIndex = ((this.pacManRadius * 2) + this.speed - 1) * 4;
+      const bottomRighIndex = pixelArray.length - 4;
+
+      if ((pixelArray[topRightIndex] === 0 && pixelArray[topRightIndex + 1] === 0 && pixelArray[topRightIndex + 2] === 0)
+        && (pixelArray[bottomRighIndex] === 0 && pixelArray[bottomRighIndex + 1] === 0 && pixelArray[bottomRighIndex + 2] === 0)) {
+        return true;
+      }
+
+    } else if (this.direction === 'up') {
+      // Cutting out PacMan + speed upp
+      const imageData = this.ctx.getImageData(this.x - this.pacManRadius, this.y - this.pacManRadius - this.speed, (this.pacManRadius * 2), this.pacManRadius * 2);
+      const pixelArray = imageData.data;
+      const topLeftIndex = 0;
+      const topRightIndex = ((this.pacManRadius * 2) + this.speed - 1) * 4;
+
+      if ((pixelArray[topLeftIndex] === 0 && pixelArray[topLeftIndex + 1] === 0 && pixelArray[topLeftIndex + 2] === 0)
+        && (pixelArray[topRightIndex] === 0 && pixelArray[topRightIndex + 1] === 0 && pixelArray[topRightIndex + 2] === 0)) {
+        return true;
+      }
+
+
+    } else if (this.direction === 'left') {
+      // Cutting out PacMan + speed left
+      const imageData = this.ctx.getImageData(this.x - this.pacManRadius - this.speed, this.y - this.pacManRadius, this.pacManRadius * 2, this.pacManRadius * 2);
+      const pixelArray = imageData.data;
+      const topLeftIndex = 0;
+      const bottomLeftIndex = pixelArray.length - (this.pacManRadius * 2 + this.speed - 1) * 4;
+
+      if ((pixelArray[topLeftIndex] === 0 && pixelArray[topLeftIndex + 1] === 0 && pixelArray[topLeftIndex + 2] === 0)
+        && (pixelArray[bottomLeftIndex] === 0 && pixelArray[bottomLeftIndex + 1] === 0 && pixelArray[bottomLeftIndex + 2] === 0)) {
+        return true;
+      }
+
+    } else if (this.direction === 'down') {
+      // Cutting out PacMan + speed down
+      const imageData = this.ctx.getImageData(this.x - this.pacManRadius, this.y - this.pacManRadius, this.pacManRadius * 2, this.pacManRadius * 2 + this.speed);
+      const pixelArray = imageData.data;
+      const bottomLeftIndex = pixelArray.length - (this.pacManRadius * 2 - 1) * 4;
+      const bottomRighIndex = pixelArray.length - 4;
+
+      if ((pixelArray[bottomLeftIndex] === 0 && pixelArray[bottomLeftIndex + 1] === 0 && pixelArray[bottomLeftIndex + 2] === 0)
+        && (pixelArray[bottomRighIndex] === 0 && pixelArray[bottomRighIndex + 1] === 0 && pixelArray[bottomRighIndex + 2] === 0)) {
+        return true;
+      }
+
+
+    } else {
+      console.log('Error direction ', this.direction, '  not defined.')
+    }
+
+    //console.log("pixel array: ", pixelArray);
+    //console.log(pixelArray[topRightIndex]);
+    //this.ctx.putImageData(imageData, 200, 200);
+
+  }
+
+  getPixelColorAtCoordinate() {
+
+  }
+
+  checkWall() {
+
+    if (this.direction === 'right') {
+      if (this.x + this.pacManRadius + this.speed >= parseInt(this.canvas.width)) {
+        return true;
+      }
+    } else if (this.direction === 'up') {
+      if (this.y - this.pacManRadius <= 0) {
+        return true;
+      }
+    } else if (this.direction === 'left') {
+      if (this.x - this.pacManRadius <= 0) {
+        return true;
+      }
+    } else if (this.direction === 'down') {
+      if (this.y + this.pacManRadius + this.speed >= parseInt(this.canvas.height)) {
+        return true;
+      }
+    }
+
+  }
+
+  setDirection(newDirection) {
+    this.direction = newDirection;
+  }
+
+  setLives() {
+    this.lives--;
+    console.log(this.lives)
+  }
+}
+
+
+
+// let x1ToCheck;
+    // let y1ToCheck;
+    // let x2ToCheck;
+    // let y2ToCheck;
+    // x1ToCheck = this.x + pacManRadius + speed;
+    // y1ToCheck = this.y - pacManRadius + speed;
+    // x2ToCheck = this.x + pacManRadius + speed;
+    // y2ToCheck = this.y + pacManRadius + speed;
+
+
+
+
 
 
     //this.ctx.arc(this.x, this.y, this.pacManRadius, 0.25 * Math.PI, 1.75 * Math.PI);
@@ -185,44 +319,3 @@ class PacMan {
     //   this.animationCounter = this.animationCounter % this.animationMaxValue;
     //   // this.ctx.fillStyle = 'blue';
     //   // this.ctx.fillRect(this.x - this.size / 2, this.y - this.size / 2, this.size, this.size);
-
-  }
-
-  checkWall() {
-
-    if (this.direction === 'right') {
-
-      console.log("Canvas width is ", this.canvas.width);
-      console.log("Canvas height is ", this.canvas.height);
-      console.log("x + pacman radius ", this.x + this.pacManRadius)
-      if (this.x + this.pacManRadius + this.speed >= parseInt(this.canvas.width)) {
-        return true;
-      }
-    } else if (this.direction === 'up') {
-      if (this.y - this.pacManRadius <= 0) {
-        return true;
-      }
-    } else if (this.direction === 'left') {
-      if (this.x - this.pacManRadius <= 0) {
-        return true;
-      }
-    } else if (this.direction === 'down') {
-      if (this.y + this.pacManRadius + this.speed >= parseInt(this.canvas.height)) {
-        return true;
-      }
-    }
-
-  }
-
-  setDirection(newDirection) {
-    this.direction = newDirection;
-  }
-
-  setLives() {
-    this.lives--;
-    console.log(this.lives)
-  }
-}
-
-
-

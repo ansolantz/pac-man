@@ -30,7 +30,7 @@ function main() {
     // console.log('you are on the game screen')
 
     const gameScreen = buildDom(`
-      <section class=" game-container">
+      <section class="game-container">
       <canvas></canvas>
       </section>
       `);
