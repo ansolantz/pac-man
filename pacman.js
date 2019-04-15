@@ -6,6 +6,7 @@ class PacMan {
   x = 0;
   y = 0;
   canvas;
+  candyEatenCallback = null;
   lives = 0
   direction = null;
   speed = 2;  //speed 1, 2, 4, 8, 32
@@ -22,12 +23,16 @@ class PacMan {
   imgHeight = '';
   img = document.createElement('img');
 
-  constructor(x, y, canvas) {
+  constructor(x, y, canvas, candyEatenCallback) {
     console.log('Creating Pack Man');
     this.canvas = canvas;
     this.x = x;
     this.y = y;
+    this.candyEatenCallback = candyEatenCallback;
     this.ctx = this.canvas.getContext('2d');
+
+
+
 
     // console.log("Canvas width is ", this.canvas.width);
     // console.log("Canvas height is ", this.canvas.height);
@@ -176,14 +181,11 @@ class PacMan {
   checkIfCanMove() {
     let imageData = [];
     let pixelArray = [];
+    //ctx.getImageData(startCuX, startCutY, numberOfPixelsToCutX, numberOfPixelsToCutY;
+    //Cutting out an array of pixels in front of PacMan for each move depending on direction.
     if (this.direction === 'right') {
-      //ctx.getImageData(startCuX, startCutY, numberOfPixelsToCutX, numberOfPixelsToCutY;
       imageData = this.ctx.getImageData(this.x + this.pacManRadius, this.y - this.pacManRadius, 1, this.pacManRadius * 2);
-      // const nextMoveValue = pixelArray.reduce((accumulator, element) => {
-      //   return accumulator + element
-      // });
     } else if (this.direction === 'up') {
-
       imageData = this.ctx.getImageData(this.x - this.pacManRadius, this.y - this.pacManRadius, this.pacManRadius * 2, -1);
     } else if (this.direction === 'left') {
       imageData = this.ctx.getImageData(this.x - this.pacManRadius, this.y - this.pacManRadius, -1, this.pacManRadius * 2);
@@ -195,11 +197,16 @@ class PacMan {
 
     pixelArray = imageData.data;
     const nextMoveValue = pixelArray.reduce((accumulator, element) => accumulator + element);
-    return (nextMoveValue === 0);
 
-    //console.log("pixel array: ", pixelArray);
-    //console.log(pixelArray[topRightIndex]);
-    //this.ctx.putImageData(imageData, 200, 200);
+    if (pixelArray.includes(250) && pixelArray.includes(252) && pixelArray.includes(182)) {
+      //console.log('Yummy!');
+
+      this.candyEatenCallback(this.x, this.y); // Calls candyFound() in games.js
+      return true;
+    } else {
+      return (nextMoveValue === 0);
+    }
+
 
   }
 
@@ -344,10 +351,6 @@ class PacMan {
 //   //this.ctx.putImageData(imageData, 200, 200);
 
 // }
-
-
-
-
 
 
 // // let x1ToCheck;

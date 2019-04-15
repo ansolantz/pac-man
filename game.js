@@ -6,7 +6,8 @@ class Game {
   ghosts = [];
   levelNumber = 1;
   gameOver = false;
-  candy;
+  candy = null;
+  candies = []
 
   constructor(canvas) {
     console.log('Creating Game');
@@ -14,10 +15,20 @@ class Game {
     this.canvas = canvas;
     this.ctx = this.canvas.getContext('2d');
     this.canvas = canvas;
-    this.pacman = new PacMan(50, 50, this.canvas);
+    this.pacman = new PacMan(50, 50, this.canvas, this.candyEaten);
     this.level = new Level(this.canvas, this.levelNumber);
 
-    this.candy = new Candy(200, 40, this.canvas)
+    //this.candy = new Candy(200, 40, this.canvas);
+    //this.candies.push(new Candy(200, 40, this.canvas));
+
+    this.candyX = 300;
+    this.candyY = 50
+
+    for (let i = 1; i < 5; i++) {
+      this.candies.push(new Candy(this.candyX, this.candyY, this.canvas))
+      this.candyX = this.candyX + 40;
+      this.candyY = this.candyY;
+    }
 
 
     document.onkeydown = (event) => {
@@ -47,7 +58,6 @@ class Game {
 
     const loop = () => {
 
-
       this.updateCanvas();
       this.clearCanvas();
       this.drawCanvas();
@@ -72,9 +82,27 @@ class Game {
     // this.ghost.update();
   }
 
+
+
+  candyEaten(candyX, candyY) {
+
+    // this.candies.forEach(candy => {
+    //   console.log(candy);
+    // });
+    console.log('Yummy! Candy found at x ', candyX, ' and y ', candyY);
+  }
+
+
   drawCanvas() {
+
     this.level.draw();
-    this.candy.draw();
+
+    //this.candies.draw();
+
+    this.candies.forEach(candy => {
+      candy.draw();
+    });
+
     this.pacman.draw();
   }
 

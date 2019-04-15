@@ -14,7 +14,6 @@ class Candy {
 
 
   draw() {
-
     // ctx.arc(x, y, radius, startAngle, endAngle)
     //  Math.PI * 2 - Full circle    Math.PI * 1 -  Half circle
 
@@ -24,5 +23,7 @@ class Candy {
     this.ctx.fill();
     this.ctx.closePath();
   }
+
+
 
 }
