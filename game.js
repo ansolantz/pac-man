@@ -6,6 +6,7 @@ class Game {
   ghosts = [];
   levelNumber = 1;
   gameOver = false;
+  candy;
 
   constructor(canvas) {
     console.log('Creating Game');
@@ -15,6 +16,8 @@ class Game {
     this.canvas = canvas;
     this.pacman = new PacMan(50, 50, this.canvas);
     this.level = new Level(this.canvas, this.levelNumber);
+
+    this.candy = new Candy(200, 40, this.canvas)
 
 
     document.onkeydown = (event) => {
@@ -71,6 +74,7 @@ class Game {
 
   drawCanvas() {
     this.level.draw();
+    this.candy.draw();
     this.pacman.draw();
   }
 

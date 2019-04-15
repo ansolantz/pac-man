@@ -174,105 +174,28 @@ class PacMan {
   }
 
   checkIfCanMove() {
-
+    let imageData = [];
+    let pixelArray = [];
     if (this.direction === 'right') {
-
-
-      // const imageData = this.ctx.getImageData(this.x + this.pacManRadius, this.y - this.pacManRadius, 1, this.pacManRadius * 2);
-      // const pixelArray = imageData.data;
-
-      const pixelArray = this.ctx.getImageData(this.x + this.pacManRadius, this.y - this.pacManRadius, 1, this.pacManRadius * 2).data;
-
+      //ctx.getImageData(startCuX, startCutY, numberOfPixelsToCutX, numberOfPixelsToCutY;
+      imageData = this.ctx.getImageData(this.x + this.pacManRadius, this.y - this.pacManRadius, 1, this.pacManRadius * 2);
       // const nextMoveValue = pixelArray.reduce((accumulator, element) => {
       //   return accumulator + element
       // });
-
-      const nextMoveValue = pixelArray.reduce((accumulator, element) => accumulator + element);
-      return (nextMoveValue === 0);
-
-
-      // Cutting out PacMan + speed right
-      // const imageData = this.ctx.getImageData(this.x - this.pacManRadius, this.y - this.pacManRadius, (this.pacManRadius * 2) + this.speed, this.pacManRadius * 2);
-      // const pixelArray = imageData.data;
-      // const topRightIndex = ((this.pacManRadius * 2) + this.speed - 1) * 4;
-      // const bottomRighIndex = pixelArray.length - 4;
-
-      // if ((pixelArray[topRightIndex] === 0 && pixelArray[topRightIndex + 1] === 0 && pixelArray[topRightIndex + 2] === 0)
-      //   && (pixelArray[bottomRighIndex] === 0 && pixelArray[bottomRighIndex + 1] === 0 && pixelArray[bottomRighIndex + 2] === 0)) {
-      //   return true;
-      // }
-
     } else if (this.direction === 'up') {
 
-
-      //ctx.getImageData(startCuX, startCutY, numberOfPixelsToCutX, numberOfPixelsToCutY;
-
-      const imageData = this.ctx.getImageData(this.x - this.pacManRadius, this.y - this.pacManRadius, this.pacManRadius * 2, -1);
-      const pixelArray = imageData.data;
-
-      const nextMoveValue = pixelArray.reduce((accumulator, element) => accumulator + element);
-      return (nextMoveValue === 0);
-
-      // // Cutting out PacMan + speed upp
-      // const imageData = this.ctx.getImageData(this.x - this.pacManRadius, this.y - this.pacManRadius - this.speed, (this.pacManRadius * 2), this.pacManRadius * 2);
-      // const pixelArray = imageData.data;
-      // const topLeftIndex = 0;
-      // const topRightIndex = ((this.pacManRadius * 2) + this.speed - 1) * 4;
-
-      // if ((pixelArray[topLeftIndex] === 0 && pixelArray[topLeftIndex + 1] === 0 && pixelArray[topLeftIndex + 2] === 0)
-      //   && (pixelArray[topRightIndex] === 0 && pixelArray[topRightIndex + 1] === 0 && pixelArray[topRightIndex + 2] === 0)) {
-      //   return true;
-      // }
-
-
+      imageData = this.ctx.getImageData(this.x - this.pacManRadius, this.y - this.pacManRadius, this.pacManRadius * 2, -1);
     } else if (this.direction === 'left') {
-
-      //ctx.getImageData(startCuX, startCutY, numberOfPixelsToCutX, numberOfPixelsToCutY;
-      const imageData = this.ctx.getImageData(this.x - this.pacManRadius, this.y - this.pacManRadius, -1, this.pacManRadius * 2);
-      const pixelArray = imageData.data;
-
-      const nextMoveValue = pixelArray.reduce((accumulator, element) => accumulator + element);
-      return (nextMoveValue === 0);
-
-
-      // // Cutting out PacMan + speed left
-      // const imageData = this.ctx.getImageData(this.x - this.pacManRadius - this.speed, this.y - this.pacManRadius, this.pacManRadius * 2, this.pacManRadius * 2);
-      // const pixelArray = imageData.data;
-      // const topLeftIndex = 0;
-      // const bottomLeftIndex = pixelArray.length - (this.pacManRadius * 2 + this.speed - 1) * 4;
-
-      // if ((pixelArray[topLeftIndex] === 0 && pixelArray[topLeftIndex + 1] === 0 && pixelArray[topLeftIndex + 2] === 0)
-      //   && (pixelArray[bottomLeftIndex] === 0 && pixelArray[bottomLeftIndex + 1] === 0 && pixelArray[bottomLeftIndex + 2] === 0)) {
-      //   return true;
-      // }
-
+      imageData = this.ctx.getImageData(this.x - this.pacManRadius, this.y - this.pacManRadius, -1, this.pacManRadius * 2);
     } else if (this.direction === 'down') {
-
-
-      //ctx.getImageData(startCuX, startCutY, numberOfPixelsToCutX, numberOfPixelsToCutY;
-      const imageData = this.ctx.getImageData(this.x - this.pacManRadius, this.y + this.pacManRadius, this.pacManRadius * 2, 1);
-      const pixelArray = imageData.data;
-
-      const nextMoveValue = pixelArray.reduce((accumulator, element) => accumulator + element);
-      return (nextMoveValue === 0);
-
-
-
-      // // Cutting out PacMan + speed down
-      // const imageData = this.ctx.getImageData(this.x - this.pacManRadius, this.y - this.pacManRadius, this.pacManRadius * 2, this.pacManRadius * 2 + this.speed);
-      // const pixelArray = imageData.data;
-      // const bottomLeftIndex = pixelArray.length - (this.pacManRadius * 2 - 1) * 4;
-      // const bottomRighIndex = pixelArray.length - 4;
-
-      // if ((pixelArray[bottomLeftIndex] === 0 && pixelArray[bottomLeftIndex + 1] === 0 && pixelArray[bottomLeftIndex + 2] === 0)
-      //   && (pixelArray[bottomRighIndex] === 0 && pixelArray[bottomRighIndex + 1] === 0 && pixelArray[bottomRighIndex + 2] === 0)) {
-      //   return true;
-      // }
-
-
+      imageData = this.ctx.getImageData(this.x - this.pacManRadius, this.y + this.pacManRadius, this.pacManRadius * 2, 1);
     } else {
       console.log('Error direction ', this.direction, '  not defined.')
     }
+
+    pixelArray = imageData.data;
+    const nextMoveValue = pixelArray.reduce((accumulator, element) => accumulator + element);
+    return (nextMoveValue === 0);
 
     //console.log("pixel array: ", pixelArray);
     //console.log(pixelArray[topRightIndex]);
@@ -316,16 +239,125 @@ class PacMan {
   }
 }
 
+// ---- original CheckIfcanMove
+
+// checkIfCanMove() {
+
+//   if (this.direction === 'right') {
+
+//     const imageData = this.ctx.getImageData(this.x + this.pacManRadius, this.y - this.pacManRadius, 1, this.pacManRadius * 2);
+//     const pixelArray = imageData.data;
 
 
-// let x1ToCheck;
-    // let y1ToCheck;
-    // let x2ToCheck;
-    // let y2ToCheck;
-    // x1ToCheck = this.x + pacManRadius + speed;
-    // y1ToCheck = this.y - pacManRadius + speed;
-    // x2ToCheck = this.x + pacManRadius + speed;
-    // y2ToCheck = this.y + pacManRadius + speed;
+//     // const nextMoveValue = pixelArray.reduce((accumulator, element) => {
+//     //   return accumulator + element
+//     // });
+
+//     const nextMoveValue = pixelArray.reduce((accumulator, element) => accumulator + element);
+//     return (nextMoveValue === 0);
+
+
+//     // Cutting out PacMan + speed right
+//     // const imageData = this.ctx.getImageData(this.x - this.pacManRadius, this.y - this.pacManRadius, (this.pacManRadius * 2) + this.speed, this.pacManRadius * 2);
+//     // const pixelArray = imageData.data;
+//     // const topRightIndex = ((this.pacManRadius * 2) + this.speed - 1) * 4;
+//     // const bottomRighIndex = pixelArray.length - 4;
+
+//     // if ((pixelArray[topRightIndex] === 0 && pixelArray[topRightIndex + 1] === 0 && pixelArray[topRightIndex + 2] === 0)
+//     //   && (pixelArray[bottomRighIndex] === 0 && pixelArray[bottomRighIndex + 1] === 0 && pixelArray[bottomRighIndex + 2] === 0)) {
+//     //   return true;
+//     // }
+
+//   } else if (this.direction === 'up') {
+
+
+//     //ctx.getImageData(startCuX, startCutY, numberOfPixelsToCutX, numberOfPixelsToCutY;
+
+//     const imageData = this.ctx.getImageData(this.x - this.pacManRadius, this.y - this.pacManRadius, this.pacManRadius * 2, -1);
+//     const pixelArray = imageData.data;
+
+//     const nextMoveValue = pixelArray.reduce((accumulator, element) => accumulator + element);
+//     return (nextMoveValue === 0);
+
+//     // // Cutting out PacMan + speed upp
+//     // const imageData = this.ctx.getImageData(this.x - this.pacManRadius, this.y - this.pacManRadius - this.speed, (this.pacManRadius * 2), this.pacManRadius * 2);
+//     // const pixelArray = imageData.data;
+//     // const topLeftIndex = 0;
+//     // const topRightIndex = ((this.pacManRadius * 2) + this.speed - 1) * 4;
+
+//     // if ((pixelArray[topLeftIndex] === 0 && pixelArray[topLeftIndex + 1] === 0 && pixelArray[topLeftIndex + 2] === 0)
+//     //   && (pixelArray[topRightIndex] === 0 && pixelArray[topRightIndex + 1] === 0 && pixelArray[topRightIndex + 2] === 0)) {
+//     //   return true;
+//     // }
+
+
+//   } else if (this.direction === 'left') {
+
+//     //ctx.getImageData(startCuX, startCutY, numberOfPixelsToCutX, numberOfPixelsToCutY;
+//     const imageData = this.ctx.getImageData(this.x - this.pacManRadius, this.y - this.pacManRadius, -1, this.pacManRadius * 2);
+//     const pixelArray = imageData.data;
+
+//     const nextMoveValue = pixelArray.reduce((accumulator, element) => accumulator + element);
+//     return (nextMoveValue === 0);
+
+
+//     // // Cutting out PacMan + speed left
+//     // const imageData = this.ctx.getImageData(this.x - this.pacManRadius - this.speed, this.y - this.pacManRadius, this.pacManRadius * 2, this.pacManRadius * 2);
+//     // const pixelArray = imageData.data;
+//     // const topLeftIndex = 0;
+//     // const bottomLeftIndex = pixelArray.length - (this.pacManRadius * 2 + this.speed - 1) * 4;
+
+//     // if ((pixelArray[topLeftIndex] === 0 && pixelArray[topLeftIndex + 1] === 0 && pixelArray[topLeftIndex + 2] === 0)
+//     //   && (pixelArray[bottomLeftIndex] === 0 && pixelArray[bottomLeftIndex + 1] === 0 && pixelArray[bottomLeftIndex + 2] === 0)) {
+//     //   return true;
+//     // }
+
+//   } else if (this.direction === 'down') {
+
+
+//     //ctx.getImageData(startCuX, startCutY, numberOfPixelsToCutX, numberOfPixelsToCutY;
+//     const imageData = this.ctx.getImageData(this.x - this.pacManRadius, this.y + this.pacManRadius, this.pacManRadius * 2, 1);
+//     const pixelArray = imageData.data;
+
+//     const nextMoveValue = pixelArray.reduce((accumulator, element) => accumulator + element);
+//     return (nextMoveValue === 0);
+
+
+//     // // Cutting out PacMan + speed down
+//     // const imageData = this.ctx.getImageData(this.x - this.pacManRadius, this.y - this.pacManRadius, this.pacManRadius * 2, this.pacManRadius * 2 + this.speed);
+//     // const pixelArray = imageData.data;
+//     // const bottomLeftIndex = pixelArray.length - (this.pacManRadius * 2 - 1) * 4;
+//     // const bottomRighIndex = pixelArray.length - 4;
+
+//     // if ((pixelArray[bottomLeftIndex] === 0 && pixelArray[bottomLeftIndex + 1] === 0 && pixelArray[bottomLeftIndex + 2] === 0)
+//     //   && (pixelArray[bottomRighIndex] === 0 && pixelArray[bottomRighIndex + 1] === 0 && pixelArray[bottomRighIndex + 2] === 0)) {
+//     //   return true;
+//     // }
+
+
+//   } else {
+//     console.log('Error direction ', this.direction, '  not defined.')
+//   }
+
+//   //console.log("pixel array: ", pixelArray);
+//   //console.log(pixelArray[topRightIndex]);
+//   //this.ctx.putImageData(imageData, 200, 200);
+
+// }
+
+
+
+
+
+
+// // let x1ToCheck;
+//     // let y1ToCheck;
+//     // let x2ToCheck;
+//     // let y2ToCheck;
+//     // x1ToCheck = this.x + pacManRadius + speed;
+//     // y1ToCheck = this.y - pacManRadius + speed;
+//     // x2ToCheck = this.x + pacManRadius + speed;
+//     // y2ToCheck = this.y + pacManRadius + speed;
 
 
 
