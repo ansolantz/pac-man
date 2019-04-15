@@ -45,10 +45,9 @@ function main() {
     canvasElement.setAttribute('width', width);
     canvasElement.setAttribute('height', height);
 
-    const game = new Game(canvasElement);
+    const game = new Game(canvasElement, buildGameOverScreen);
     game.startLoop();
 
-    game.setGameOver(buildGameOverScreen);
 
     //setTimeout(buildGameOverScreen, 3000); //To test GameOverSreen
   }

@@ -8,15 +8,16 @@ class Game {
   gameOver = false;
   candy = null;
   candies = []
+  gameOverCallback;
 
-  constructor(canvas) {
+  constructor(canvas, gameOverCallback) {
     console.log('Creating Game');
 
     this.canvas = canvas;
     this.ctx = this.canvas.getContext('2d');
     this.canvas = canvas;
-    this.pacman = new PacMan(50, 50, this.canvas, this.candyEaten);
-    this.level = new Level(this.canvas, this.levelNumber);
+    this.gameOverCallback = gameOverCallback;
+
 
     //this.candy = new Candy(200, 40, this.canvas);
     //this.candies.push(new Candy(200, 40, this.canvas));
@@ -26,9 +27,26 @@ class Game {
 
     for (let i = 1; i < 5; i++) {
       this.candies.push(new Candy(this.candyX, this.candyY, this.canvas))
-      this.candyX = this.candyX + 40;
+      this.candyX = this.candyX + 50;
       this.candyY = this.candyY;
     }
+    this.ghost = new Ghost(200, 200, this.canvas);
+
+
+    // let myCandyEatenArrowFunction = () => this.candyEaten()
+    // this.pacman = new PacMan(50, 50, this.canvas, myCandyEatenArrowFunction);
+
+    // --- Sending Arrow Function  to not loose context of this ----- //
+    //https://stackoverflow.com/questions/20279484/how-to-access-the-correct-this-inside-a-callback
+
+    this.pacman = new PacMan(50, 50, this.canvas, (candyX, candyY) => {
+      this.candyEaten(candyX, candyY)
+    });
+
+    // let myCandyEatenFunction = this.candyEaten
+    // this.pacman = new PacMan(50, 50, this.canvas, myCandyEatenFunction);
+
+    this.level = new Level(this.canvas, this.levelNumber);
 
 
     document.onkeydown = (event) => {
@@ -52,7 +70,8 @@ class Game {
 
   startLoop() {
 
-    // this.pacman = new PacMan(50, 50, this.canvas);
+
+    // this.pacman = new PacMan(50, 50, this.canvas, this.candyEaten);
 
     console.log('Im in the looooooop');
 
@@ -61,7 +80,7 @@ class Game {
       this.updateCanvas();
       this.clearCanvas();
       this.drawCanvas();
-      this.checkCollisions();
+
 
       // console.log(this.pacman.direction)
       // this.pacman.getPixelColorAtCoordinate();
@@ -70,6 +89,7 @@ class Game {
         window.requestAnimationFrame(loop);
       }
     }
+
     window.requestAnimationFrame(loop);
   }
 
@@ -79,35 +99,40 @@ class Game {
 
   updateCanvas() {
     this.pacman.update();
-    // this.ghost.update();
+    this.ghost.update();
   }
 
 
+  //Loosing context of 'this'(this = PacMan) here, solving by sending an arrow function.
+  candyEaten(candyXApprox, candyYApprox) {
 
-  candyEaten(candyX, candyY) {
+    // ---- Collision detection with candy --- //
+    const candyIndex = this.candies.findIndex(candy => {
+      if (candy.x >= candyXApprox - 10 && candy.x <= candyXApprox + 10 && candy.y >= candyYApprox - 10 && candy.y <= candyYApprox + 10) {
+        console.log('Yummy! Candy found at x ', candyXApprox, ' and y ', candyYApprox);
+        return true;
+      } else {
+        return false;
+      }
+    });
+    this.candies.splice(candyIndex, 1)
+    if (this.candies.length === 0) {
+      this.gameOver = true;
+      this.gameOverCallback();
+    }
 
-    // this.candies.forEach(candy => {
-    //   console.log(candy);
-    // });
-    console.log('Yummy! Candy found at x ', candyX, ' and y ', candyY);
   }
 
 
   drawCanvas() {
-
     this.level.draw();
-
-    //this.candies.draw();
-
     this.candies.forEach(candy => {
       candy.draw();
     });
-
+    this.ghost.draw();
     this.pacman.draw();
   }
 
-  checkCollisions() {
-  }
 
   setGameOver(buildGameOverScreen) {
     this.buildGameOverScreen = buildGameOverScreen;

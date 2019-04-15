@@ -33,7 +33,6 @@ class PacMan {
 
 
 
-
     // console.log("Canvas width is ", this.canvas.width);
     // console.log("Canvas height is ", this.canvas.height);
 
@@ -181,16 +180,22 @@ class PacMan {
   checkIfCanMove() {
     let imageData = [];
     let pixelArray = [];
+    let candyLoactionX = this.x;
+    let candyLocationY = this.y;
     //ctx.getImageData(startCuX, startCutY, numberOfPixelsToCutX, numberOfPixelsToCutY;
     //Cutting out an array of pixels in front of PacMan for each move depending on direction.
     if (this.direction === 'right') {
       imageData = this.ctx.getImageData(this.x + this.pacManRadius, this.y - this.pacManRadius, 1, this.pacManRadius * 2);
+      candyLoactionX = candyLoactionX + this.pacManRadius;
     } else if (this.direction === 'up') {
       imageData = this.ctx.getImageData(this.x - this.pacManRadius, this.y - this.pacManRadius, this.pacManRadius * 2, -1);
+      candyLocationY = candyLocationY - this.pacManRadius;
     } else if (this.direction === 'left') {
       imageData = this.ctx.getImageData(this.x - this.pacManRadius, this.y - this.pacManRadius, -1, this.pacManRadius * 2);
+      candyLoactionX = candyLoactionX - this.pacManRadius;
     } else if (this.direction === 'down') {
       imageData = this.ctx.getImageData(this.x - this.pacManRadius, this.y + this.pacManRadius, this.pacManRadius * 2, 1);
+      candyLocationY = candyLocationY + this.pacManRadius;
     } else {
       console.log('Error direction ', this.direction, '  not defined.')
     }
@@ -201,7 +206,7 @@ class PacMan {
     if (pixelArray.includes(250) && pixelArray.includes(252) && pixelArray.includes(182)) {
       //console.log('Yummy!');
 
-      this.candyEatenCallback(this.x, this.y); // Calls candyFound() in games.js
+      this.candyEatenCallback(candyLoactionX, candyLocationY); // Calls candyFound() in games.js
       return true;
     } else {
       return (nextMoveValue === 0);
