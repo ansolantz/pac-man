@@ -32,7 +32,7 @@ class Game {
     }
 
     //Create 4 ghosts i array
-    this.ghost = new Ghost(300, 200, this.canvas, 'rgb(255, 138, 170');
+    this.ghost = new Ghost(300, 200, this.canvas, 'rgb(255, 138, 170', () => this.ghostHitPacman());
     //this.ghosts.push(new Ghost(200, 160, this.canvas, 'rgb(255, 138, 170');
 
     // let myCandyEatenArrowFunction = () => this.candyEaten()
@@ -83,9 +83,7 @@ class Game {
       this.clearCanvas();
       this.drawCanvas();
 
-
       // console.log(this.pacman.direction)
-      // this.pacman.getPixelColorAtCoordinate();
 
       if (this.gameOver === false) {
         window.requestAnimationFrame(loop);
@@ -121,6 +119,16 @@ class Game {
     if (this.candies.length === 0) {
       this.gameOver = true;
       this.gameOverCallback();
+    }
+  }
+
+  ghostHitPacman() {
+    console.log('Hahah got ya!')
+
+    this.pacman.setLives();
+    if (this.pacman.lives === 0) {
+      this.gameOver = true;
+      //this.gameOverCallback();
     }
 
   }

@@ -5,6 +5,8 @@ class Level {
   canvas;
   levelNumber;
   ctx = null;
+  //color = "rgb(36, 0, 255)";
+  color = "rgb(14, 2, 248)";
 
   constructor(canvas, levelNumber) {
     this.canvas = canvas;
@@ -16,28 +18,28 @@ class Level {
   draw() {
     if (this.levelNumber === 1) {
 
-      // // start the path
-      // this.ctx.beginPath();
+      // start the path
+      this.ctx.beginPath();
 
-      // // change the fill style
-      // //ctx.fillStyle= "rgb(36, 0, 255)"; 
+      // change the fill style
+      //ctx.fillStyle= "rgb(36, 0, 255)"; 
 
-      // // starting position is x, y
-      // this.ctx.moveTo(200, 40);
+      // starting position is x, y
+      this.ctx.moveTo(250, 100);
 
-      // // draw the line that has final coordinates x=100, y=250
-      // this.ctx.lineTo(200, 140);
-      // this.ctx.strokeStyle = "rgb(36, 0, 255)";
-      // this.ctx.lineWidth = 4;
+      // draw the line that has final coordinates x=100, y=250
+      this.ctx.lineTo(250, 240);
+      this.ctx.strokeStyle = this.color;
+      this.ctx.lineWidth = 4;
 
-      // this.ctx.stroke();
-      // this.ctx.closePath();
+      this.ctx.stroke();
+      this.ctx.closePath();
 
-      // this.ctx.beginPath();
-      // this.ctx.moveTo(198, 40);
-      // this.ctx.lineTo(250, 40);
-      // this.ctx.stroke();
-      // this.ctx.closePath();
+      this.ctx.beginPath();
+      this.ctx.moveTo(248, 100);
+      this.ctx.lineTo(300, 100);
+      this.ctx.stroke();
+      this.ctx.closePath();
 
     }
 

@@ -7,7 +7,7 @@ class PacMan {
   y = 0;
   canvas;
   candyEatenCallback = null;
-  lives = 0
+  lives = 3;
   direction = null;
   speed = 2;  //speed 1, 2, 4, 8, 32
   ctx = null;
@@ -15,6 +15,7 @@ class PacMan {
   moveY = 0;
   pacManRadius = 16;
   isMouthClosing = true;
+  color = 'rgb(255, 255, 0)'
 
   animationCounter = 0;
   animationMaxValue = 0.24;  //Controles the animation of PacMans mouth
@@ -121,7 +122,7 @@ class PacMan {
           (arcEnd - this.animationCounter) * Math.PI);
       }
       this.ctx.lineTo(this.x, this.y);
-      this.ctx.fillStyle = "rgb(255, 255, 0)";
+      this.ctx.fillStyle = this.color;
       this.ctx.fill();
       this.ctx.closePath();
 
@@ -141,7 +142,7 @@ class PacMan {
         (arcEnd + this.animationCounter) * Math.PI);
 
       this.ctx.lineTo(this.x, this.y);
-      this.ctx.fillStyle = "rgb(255, 255, 0)";
+      this.ctx.fillStyle = this.color;
       this.ctx.fill();
       this.ctx.closePath();
     }
@@ -201,6 +202,16 @@ class PacMan {
 
   }
 
+  checkColor(rgbNumber1, rgbNumber2, rgbNumber3, pixelArray) {
+    let found = false;
+    for (var i = 0; i < pixelArray.length; i++) {
+      if (pixelArray[i] == rgbNumber1 && pixelArray[i + 1] == rgbNumber2 && pixelArray[i + 2] == rgbNumber3) {
+        found = true;
+        break;
+      }
+    }
+    return found;
+  }
 
   checkWall() {
 
@@ -230,7 +241,7 @@ class PacMan {
 
   setLives() {
     this.lives--;
-    console.log(this.lives)
+    console.log('Life: ', this.lives)
   }
 }
 

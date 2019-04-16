@@ -13,12 +13,13 @@ class Ghost {
   image = null;
 
 
-  constructor(x, y, canvas, color) {
+  constructor(x, y, canvas, color, ghostHitPacmanCallback) {
     this.x = x;
     this.y = y;
     this.canvas = canvas;
     this.ctx = this.canvas.getContext('2d');
     this.color = color;
+    this.ghostHitPacmanCallback = ghostHitPacmanCallback;
     this.randomDirection();
   }
 
@@ -140,14 +141,32 @@ class Ghost {
     const nextMoveValue = pixelArray.reduce((accumulator, element) => accumulator + element);
 
 
-    if (pixelArray.includes(250) && pixelArray.includes(252) && pixelArray.includes(182)) {
+    if (this.checkColor(255, 252, 182, pixelArray)) {
+      //Color of the candy
       return true;
+    } else if (this.checkColor(255, 255, 0, pixelArray)) {
+      //Color of Pac Man 'rgb(255, 255, 0)'
+
+      // Color of borders "rgb(14, 2, 248)";
+      this.ghostHitPacmanCallback(); // Calls ghostHitPacman() in games.js
+      //console.log('Haha
     } else {
       return (nextMoveValue === 0);
     }
 
+
   }
 
+  checkColor(rgbNumber1, rgbNumber2, rgbNumber3, pixelArray) {
+    let found = false;
+    for (var i = 0; i < pixelArray.length; i++) {
+      if (pixelArray[i] == rgbNumber1 && pixelArray[i + 1] == rgbNumber2 && pixelArray[i + 2] == rgbNumber3) {
+        found = true;
+        break;
+      }
+    }
+    return found;
+  }
 
   checkWall() {
 
