@@ -33,9 +33,9 @@ class Game {
     //Create 4 ghosts i array
     //this.ghost = new Ghost(300, 200, this.canvas, 'rgb(255, 138, 170', () => this.ghostHitPacman());
     this.ghosts.push(new Ghost(300, 200, this.canvas, 'rgb(255, 138, 170', () => this.ghostHitPacman()));
-    this.ghosts.push(new Ghost(300, 200, this.canvas, 'rgb(255, 138, 170', () => this.ghostHitPacman()));
-    this.ghosts.push(new Ghost(300, 200, this.canvas, 'rgb(255, 138, 170', () => this.ghostHitPacman()));
-    this.ghosts.push(new Ghost(300, 200, this.canvas, 'rgb(255, 138, 170', () => this.ghostHitPacman()));
+    this.ghosts.push(new Ghost(300, 200, this.canvas, 'rgb(36, 180, 237', () => this.ghostHitPacman()));
+    this.ghosts.push(new Ghost(300, 200, this.canvas, 'rgb(244, 10, 29', () => this.ghostHitPacman()));
+    this.ghosts.push(new Ghost(300, 200, this.canvas, 'rgb(244, 132, 3', () => this.ghostHitPacman()));
 
     // let myCandyEatenArrowFunction = () => this.candyEaten()
     // this.pacman = new PacMan(50, 50, this.canvas, myCandyEatenArrowFunction);
@@ -43,7 +43,7 @@ class Game {
     // --- Sending Arrow Function  to not loose context of this ----- //
     //https://stackoverflow.com/questions/20279484/how-to-access-the-correct-this-inside-a-callback
 
-    this.pacman = new PacMan(50, 50, this.canvas, (candyX, candyY) => {
+    this.pacman = new PacMan(25, 25, this.canvas, (candyX, candyY) => {
       this.candyEaten(candyX, candyY)
     });
 

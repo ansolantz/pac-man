@@ -262,8 +262,8 @@ class PacMan {
   }
 
   lifeLost() {
-    this.x = 50;
-    this.y = 50;
+    this.x = 25;
+    this.y = 25;
     this.isMouthClosing = true;
     this.animationCounter = 0;
     this.direction = null;
