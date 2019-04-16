@@ -30,8 +30,10 @@ class Game {
       this.candyX = this.candyX + 50;
       this.candyY = this.candyY;
     }
-    this.ghost = new Ghost(200, 200, this.canvas);
 
+    //Create 4 ghosts i array
+    this.ghost = new Ghost(300, 200, this.canvas, 'rgb(255, 138, 170');
+    //this.ghosts.push(new Ghost(200, 160, this.canvas, 'rgb(255, 138, 170');
 
     // let myCandyEatenArrowFunction = () => this.candyEaten()
     // this.pacman = new PacMan(50, 50, this.canvas, myCandyEatenArrowFunction);

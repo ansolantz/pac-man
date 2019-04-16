@@ -1,30 +1,63 @@
+'use strict'
 console.log('ghost')
 
 class Ghost {
   x = 0;
   y = 0;
-  directionX = 0;
-  directionY = 0;
+  direction = '';
+  moveX = 0;
+  moveY = 0;
+  ghostRadius = 16;
+  speed = 1;  //speed 1, 2, 4, 8, 32
+  ctx = null;
   image = null;
 
-  constructor(x, y, canvas) {
+
+  constructor(x, y, canvas, color) {
     this.x = x;
     this.y = y;
     this.canvas = canvas;
     this.ctx = this.canvas.getContext('2d');
+    this.color = color;
+    this.randomDirection();
   }
 
 
   draw() {
+
+    //console.log('Drawing ghost');
     // ctx.arc(x, y, radius, startAngle, endAngle)
     //  Math.PI * 2 - Full circle    Math.PI * 1 -  Half circle
 
     this.ctx.beginPath();
-    this.ctx.arc(this.x, this.y, 25, 0, 2 * Math.PI);
-    this.ctx.fillStyle = "rgb(255, 0, 144)";
+    this.ctx.arc(this.x, this.y, this.ghostRadius, 0, 2 * Math.PI);
+    this.ctx.fillStyle = this.color;
     this.ctx.fill();
     this.ctx.closePath();
 
+
+    // TRIANGLE
+    // start the path
+    // this.ctx.beginPath();
+
+    // // change the fill style
+    // this.ctx.fillStyle = "rgb(255, 0, 144)";
+
+    // // starting position is x=150, y=200
+    // this.ctx.moveTo(this.x, this.y - 20);
+
+    // // draw the line that has final coordinates x=100, y=250
+    // this.ctx.lineTo(this.x - 30, this.y + 30);
+
+    // // draw the line that has final coordinates x=200, y=250 
+    // this.ctx.lineTo(this.x + 30, this.y + 30);
+
+    // // fills the shape and closes the path automatically
+    // this.ctx.fill();
+    // // close the path
+    // this.ctx.closePath();
+
+    // Drawing ghost eyes's -------------
     this.ctx.beginPath();
     this.ctx.arc(this.x - 6, this.y - 6, 3, 0, 2 * Math.PI);
     this.ctx.fillStyle = "rgb(255, 255, 255)";
@@ -36,20 +69,107 @@ class Ghost {
     this.ctx.fillStyle = "rgb(255, 255, 255)";
     this.ctx.fill();
     this.ctx.closePath();
-
+    //----------------------------------
 
   }
 
-
+  randomDirection() {
+    //--- Random ghost direction ---//
+    let directions = ['right', 'up', 'left', 'down'];
+    let randomDirectionIndex = Math.floor((Math.random() * directions.length));
+    this.direction = directions[randomDirectionIndex];
+    //console.log('Random direction index ', randomDirectionIndex);
+    //console.log(this.direction);
+  }
 
   update() {
 
+    if (this.direction === null) {
+      this.randomDirection();
+      return;
+    }
 
+    if (this.checkWall()) {
+      // console.log('ghost has hit wall');
+      this.randomDirection();
+      return;
+    }
+
+    if (!this.checkIfCanMove()) {
+      // console.log('has hit a line');
+      //Random new direction
+      this.randomDirection();
+      //return;
+    }
+
+    this.moveX = 0;
+    this.moveY = 0;
+
+    if (this.direction === 'right') {
+      this.moveX = 1;
+    } else if (this.direction === 'up') {
+      this.moveY = -1;
+    } else if (this.direction === 'left') {
+      this.moveX = -1;
+    } else if (this.direction === 'down') {
+      this.moveY = 1;
+    }
+    this.y = this.y + this.moveY * this.speed;
+    this.x = this.x + this.moveX * this.speed;
+  }
+
+
+  checkIfCanMove() {
+    let imageData = [];
+    let pixelArray = [];
+    //ctx.getImageData(startCuX, startCutY, numberOfPixelsToCutX, numberOfPixelsToCutY;
+    //Cutting out an array of pixels in front of PacMan for each move depending on direction.
+    if (this.direction === 'right') {
+      imageData = this.ctx.getImageData(this.x + this.ghostRadius, this.y - this.ghostRadius, 1, this.ghostRadius * 2);
+    } else if (this.direction === 'up') {
+      imageData = this.ctx.getImageData(this.x - this.ghostRadius, this.y - this.ghostRadius, this.ghostRadius * 2, -1);
+    } else if (this.direction === 'left') {
+      imageData = this.ctx.getImageData(this.x - this.ghostRadius, this.y - this.ghostRadius, -1, this.ghostRadius * 2);
+    } else if (this.direction === 'down') {
+      imageData = this.ctx.getImageData(this.x - this.ghostRadius, this.y + this.ghostRadius, this.ghostRadius * 2, 1);
+    } else {
+      console.log('Error direction ', this.direction, '  not defined.')
+    }
+
+    pixelArray = imageData.data;
+    const nextMoveValue = pixelArray.reduce((accumulator, element) => accumulator + element);
+
+
+    if (pixelArray.includes(250) && pixelArray.includes(252) && pixelArray.includes(182)) {
+      return true;
+    } else {
+      return (nextMoveValue === 0);
+    }
 
   }
+
 
   checkWall() {
 
+    if (this.direction === 'right') {
+      if (this.x + this.ghostRadius + this.speed >= parseInt(this.canvas.width)) {
+        return true;
+      }
+    } else if (this.direction === 'up') {
+      if (this.y - this.ghostRadius <= 0) {
+        return true;
+      }
+    } else if (this.direction === 'left') {
+      if (this.x - this.ghostRadius <= 0) {
+        return true;
+      }
+    } else if (this.direction === 'down') {
+      if (this.y + this.ghostRadius + this.speed >= parseInt(this.canvas.height)) {
+        return true;
+      }
+    }
+
   }
+
 
 }
