@@ -150,7 +150,7 @@ class Ghost {
       // Color of borders "rgb(14, 2, 248)";
       this.ghostHitPacmanCallback(); // Calls ghostHitPacman() in games.js
       //console.log('Haha
-      return false;
+      //return false;
     } else {
       return (nextMoveValue === 0);
     }
