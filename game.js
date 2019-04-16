@@ -1,6 +1,5 @@
 'use strict'
 
-
 class Game {
   pacman = null;
   ghosts = [];
@@ -72,10 +71,9 @@ class Game {
 
   startLoop() {
 
-
     // this.pacman = new PacMan(50, 50, this.canvas, this.candyEaten);
 
-    console.log('Im in the looooooop');
+    //console.log('Im in the looooooop');
 
     const loop = () => {
 
@@ -126,11 +124,10 @@ class Game {
     console.log('Hahah got ya!')
 
     this.pacman.setLives();
+    this.pacman.startImmortal();
     if (this.pacman.lives === 0) {
       this.gameOver = true;
-      //this.gameOverCallback();
     }
-
   }
 
 

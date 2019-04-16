@@ -15,7 +15,8 @@ class PacMan {
   moveY = 0;
   pacManRadius = 16;
   isMouthClosing = true;
-  color = 'rgb(255, 255, 0)'
+  color = 'rgb(255, 255, 1)'
+  isImmortal = false;
 
   animationCounter = 0;
   animationMaxValue = 0.24;  //Controles the animation of PacMans mouth
@@ -81,6 +82,15 @@ class PacMan {
     this.x = this.x + this.moveX * this.speed;
   }
 
+  startImmortal() {
+    //Pac man is immortal
+    this.color = 'rgb(254, 254, 2)';
+    console.log('immortal!');
+    setTimeout(() => {
+      this.color = 'rgb(255, 255, 1)';
+      console.log('Not immortal!');
+    }, 5000);
+  }
 
   draw() {
     //this.ctx.drawImage(this.img, this.x, this.y, 50, 50);
@@ -191,9 +201,18 @@ class PacMan {
     pixelArray = imageData.data;
     const nextMoveValue = pixelArray.reduce((accumulator, element) => accumulator + element);
 
-    if (pixelArray.includes(250) && pixelArray.includes(252) && pixelArray.includes(182)) {
-      //console.log('Yummy!');
+    // if (pixelArray.includes(250) && pixelArray.includes(252) && pixelArray.includes(182)) {
+    //   //console.log('Yummy!');
 
+    //   this.candyEatenCallback(candyLoactionX, candyLocationY); // Calls candyFound() in games.js
+    //   return true;
+    // } else {
+    //   return (nextMoveValue === 0);
+    // }
+
+
+    if (this.checkColor(250, 252, 182, pixelArray)) {
+      //console.log('Yummy!');
       this.candyEatenCallback(candyLoactionX, candyLocationY); // Calls candyFound() in games.js
       return true;
     } else {
@@ -205,7 +224,7 @@ class PacMan {
   checkColor(rgbNumber1, rgbNumber2, rgbNumber3, pixelArray) {
     let found = false;
     for (var i = 0; i < pixelArray.length; i++) {
-      if (pixelArray[i] == rgbNumber1 && pixelArray[i + 1] == rgbNumber2 && pixelArray[i + 2] == rgbNumber3) {
+      if (pixelArray[i] === rgbNumber1 && pixelArray[i + 1] === rgbNumber2 && pixelArray[i + 2] === rgbNumber3) {
         found = true;
         break;
       }

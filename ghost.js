@@ -141,15 +141,16 @@ class Ghost {
     const nextMoveValue = pixelArray.reduce((accumulator, element) => accumulator + element);
 
 
-    if (this.checkColor(255, 252, 182, pixelArray)) {
+    if (this.checkColor(250, 252, 182, pixelArray)) {
       //Color of the candy
       return true;
-    } else if (this.checkColor(255, 255, 0, pixelArray)) {
-      //Color of Pac Man 'rgb(255, 255, 0)'
+    } else if (this.checkColor(255, 255, 1, pixelArray)) {
+      //Color of Pac Man 'rgb(255, 255, 1)'
 
       // Color of borders "rgb(14, 2, 248)";
       this.ghostHitPacmanCallback(); // Calls ghostHitPacman() in games.js
       //console.log('Haha
+      return false;
     } else {
       return (nextMoveValue === 0);
     }
@@ -160,7 +161,7 @@ class Ghost {
   checkColor(rgbNumber1, rgbNumber2, rgbNumber3, pixelArray) {
     let found = false;
     for (var i = 0; i < pixelArray.length; i++) {
-      if (pixelArray[i] == rgbNumber1 && pixelArray[i + 1] == rgbNumber2 && pixelArray[i + 2] == rgbNumber3) {
+      if (pixelArray[i] === rgbNumber1 && pixelArray[i + 1] === rgbNumber2 && pixelArray[i + 2] === rgbNumber3) {
         found = true;
         break;
       }

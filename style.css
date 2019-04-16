@@ -123,4 +123,7 @@ p {
     height: 320px;
     border: 1px solid blue;
   }
+  #lives {
+    color: #ffffff;
+  }
 }
