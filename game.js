@@ -31,8 +31,11 @@ class Game {
     }
 
     //Create 4 ghosts i array
-    this.ghost = new Ghost(300, 200, this.canvas, 'rgb(255, 138, 170', () => this.ghostHitPacman());
-    //this.ghosts.push(new Ghost(200, 160, this.canvas, 'rgb(255, 138, 170');
+    //this.ghost = new Ghost(300, 200, this.canvas, 'rgb(255, 138, 170', () => this.ghostHitPacman());
+    this.ghosts.push(new Ghost(300, 200, this.canvas, 'rgb(255, 138, 170', () => this.ghostHitPacman()));
+    this.ghosts.push(new Ghost(300, 200, this.canvas, 'rgb(255, 138, 170', () => this.ghostHitPacman()));
+    this.ghosts.push(new Ghost(300, 200, this.canvas, 'rgb(255, 138, 170', () => this.ghostHitPacman()));
+    this.ghosts.push(new Ghost(300, 200, this.canvas, 'rgb(255, 138, 170', () => this.ghostHitPacman()));
 
     // let myCandyEatenArrowFunction = () => this.candyEaten()
     // this.pacman = new PacMan(50, 50, this.canvas, myCandyEatenArrowFunction);
@@ -97,7 +100,10 @@ class Game {
 
   updateCanvas() {
     this.pacman.update();
-    this.ghost.update();
+
+    this.ghosts.forEach(ghost => {
+      ghost.update();
+    });
   }
 
 
@@ -123,7 +129,8 @@ class Game {
   ghostHitPacman() {
     console.log('Hahah got ya!')
 
-    this.pacman.setLives();
+    this.pacman.lifeLost();
+
     this.pacman.startImmortal();
     if (this.pacman.lives === 0) {
       this.gameOver = true;
@@ -136,8 +143,11 @@ class Game {
     this.candies.forEach(candy => {
       candy.draw();
     });
-    this.ghost.draw();
     this.pacman.draw();
+    this.ghosts.forEach(ghost => {
+      ghost.draw();
+    });
+
   }
 
 

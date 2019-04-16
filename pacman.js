@@ -84,7 +84,7 @@ class PacMan {
 
   startImmortal() {
     //Pac man is immortal
-    this.color = 'rgb(254, 254, 2)';
+    this.color = 'rgb(254, 254, 233)';
     console.log('immortal!');
     setTimeout(() => {
       this.color = 'rgb(255, 255, 1)';
@@ -215,6 +215,9 @@ class PacMan {
       //console.log('Yummy!');
       this.candyEatenCallback(candyLoactionX, candyLocationY); // Calls candyFound() in games.js
       return true;
+    } else if (this.checkColor(36, 22, 255, pixelArray)) {
+      // Border color "rgb(36, 2, 255)";
+      return false;
     } else {
       return (nextMoveValue === 0);
     }
@@ -258,7 +261,12 @@ class PacMan {
     this.direction = newDirection;
   }
 
-  setLives() {
+  lifeLost() {
+    this.x = 50;
+    this.y = 50;
+    this.isMouthClosing = true;
+    this.animationCounter = 0;
+    this.direction = null;
     this.lives--;
     console.log('Life: ', this.lives)
   }

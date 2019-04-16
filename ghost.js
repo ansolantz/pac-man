@@ -100,7 +100,7 @@ class Ghost {
       // console.log('has hit a line');
       //Random new direction
       this.randomDirection();
-      //return;
+      return;
     }
 
     this.moveX = 0;
@@ -139,7 +139,9 @@ class Ghost {
 
     pixelArray = imageData.data;
     const nextMoveValue = pixelArray.reduce((accumulator, element) => accumulator + element);
-
+    if (nextMoveValue === 0) {
+      return true;
+    }
 
     if (this.checkColor(250, 252, 182, pixelArray)) {
       //Color of the candy
@@ -150,11 +152,17 @@ class Ghost {
       // Color of borders "rgb(14, 2, 248)";
       this.ghostHitPacmanCallback(); // Calls ghostHitPacman() in games.js
       //console.log('Haha
-      //return false;
-    } else {
-      return (nextMoveValue === 0);
+      return true;
+    } else if (this.checkColor(36, 2, 255, pixelArray)) {
+      // Border color "rgb(36, 2, 255)";
+      return false;
     }
 
+    // if (nextMoveValue !== 0) {
+    //   debugger;
+    //   return true;
+    // }
+    return true;
 
   }
 
