@@ -23,6 +23,14 @@ div {
   display: block;
 }
 
+section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+}
+
 /* ---- typography ---- */
 
 body {
@@ -89,6 +97,7 @@ p {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    align-content: center;
   }
   /* ---- components ---- */
   /* .button {
@@ -105,18 +114,17 @@ p {
     background-color: #ffec64;
     border: 1px solid #ffaa22;
     cursor: pointer;
-    color: #333333;
-    font-family: Courier New;
+    color: #000000;
+    font-family: 'Courier New', Courier, monospace;
     font-size: 15px;
-    font-weight: bold;
+    font-weight: 500;
     padding: 8px 20px;
     text-decoration: none;
-    text-shadow: 0px 1px 0px #ffee66;
   }
-  .button:hover {
+  .button, .restart-button:hover {
     background-color: #ffab23;
   }
-  .button:active {
+  .button, .restart-button:active {
     border: 1px solid #ffaa22;
   }
   /* .button-alt {
@@ -145,6 +153,7 @@ p {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    align-content: center;
   }
   /* ---- components ---- */
   /* .button {
@@ -153,26 +162,25 @@ p {
     color: #fff;
     border: 1px solid #fff
   } */
-  .button .restart-button {
+  .button, .start-button, .restart-button {
+    margin: 5px 0 5px 0;
     -moz-box-shadow: 0px 1px 0px 0px #fff6af;
     -webkit-box-shadow: 0px 1px 0px 0px #fff6af;
     box-shadow: 0px 1px 0px 0px #fff6af;
     background-color: #ffec64;
     border: 1px solid #ffaa22;
-    display: inline-block;
     cursor: pointer;
-    color: #333333;
-    font-family: Courier New;
+    color: #000000;
+    font-family: 'Courier New', Courier, monospace;
     font-size: 15px;
-    font-weight: bold;
-    padding: 10px 24px;
+    font-weight: 500;
+    padding: 8px 20px;
     text-decoration: none;
-    text-shadow: 0px 1px 0px #ffee66;
   }
-  .button:hover {
+  .button, .start-button, .restart-button:hover {
     background-color: #ffab23;
   }
-  .button:active {
+  .button, .start-button, .restart-button:active {
     border: 1px solid #ffaa22;
   }
   .button-alt {
