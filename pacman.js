@@ -287,13 +287,6 @@ class PacMan {
   }
 
 
-  startLostLifeTimer() {
 
-    console.log('Lost a life');
-
-    setTimeout(() => {
-      this.lifeLost();
-    }, 5000);
-  }
 }
 

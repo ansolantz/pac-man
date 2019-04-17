@@ -3,6 +3,11 @@
   src: url("fonts/PAC-FONT.TTF");
 }
 
+@font-face {
+  font-family: "Arcade Classic";
+  src: url("fonts/ARCADECLASSIC.TTF");
+}
+
 /* ---- reset ---- */
 
 html {
@@ -21,6 +26,14 @@ body {
 
 div {
   display: block;
+}
+
+header {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* align-content: center; */
 }
 
 section {
@@ -44,16 +57,24 @@ h1 {
   font-family: "Pac Font", Impact;
   text-align: center;
   color: Yellow;
-  font-size: 36px;
+  font-size: 50px;
   padding: 5px;
+  text-shadow: 2px 2px #ffffff;
 }
 
 h2 {
-  font-family: 'Courier New', Courier, monospace;
+  font-family: 'Arcade Classic', 'Courier New', Courier;
   text-align: center;
   color: Yellow;
   font-size: 30px;
   padding: 5px;
+}
+
+.titleSign {
+  /* width: 350px;
+  background-color: #f67622;
+  border: 1px solid #f80126;
+  border-radius: 20px; */
 }
 
 h3 {}
@@ -65,6 +86,7 @@ p {
 /* ---- layout ---- */
 
 #site-header {
+  font-family: 'Arcade Classic', 'Courier New', Courier;
   padding: 30px 0;
   color: white;
   background: #111;
@@ -86,7 +108,9 @@ p {
 }
 
 #pacman-won {
+  font-family: 'Arcade Classic', 'Courier New', Courier;
   color: #ffffff;
+  font-size: 24px;
   padding: 4px 0 4px 0;
 }
 
@@ -115,7 +139,7 @@ p {
     border: 1px solid #ffaa22;
     cursor: pointer;
     color: #000000;
-    font-family: 'Courier New', Courier, monospace;
+    font-family: 'Arcade Classic', 'Courier New', Courier;
     font-size: 15px;
     font-weight: 500;
     padding: 8px 20px;
@@ -138,10 +162,12 @@ p {
   .game-container {
     width: 472px;
     height: 560px;
-    border: 1px solid blue;
+    /* border: 1px solid blue; */
   }
   #lives {
+    font-family: 'Arcade Classic', 'Courier New', Courier;
     color: #ffffff;
+    font-size: 20px;
     padding: 4px 0 4px 0;
   }
 }

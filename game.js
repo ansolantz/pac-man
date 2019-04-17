@@ -9,6 +9,11 @@ class Game {
   candies = []
   gameOverCallback;
   pacManWins = null;
+  soundEffect;
+
+  soundBeginning;
+  pacmanDeath;
+  pacmanChomp;
 
   constructor(canvas, gameOverCallback, livesDiv) {
     console.log('Creating Game');
@@ -18,6 +23,10 @@ class Game {
     this.canvas = canvas;
     this.gameOverCallback = gameOverCallback;
     this.livesDiv = livesDiv;
+    this.soundBeginning = new Audio('sounds/pacman_beginning.wav');
+    this.pacmanDeath = new Audio('sounds/pacman_death.wav');
+    this.pacmanChomp = new Audio('sounds/pacman_chomp.wav');
+
 
 
     //this.candy = new Candy(200, 40, this.canvas);
@@ -110,7 +119,8 @@ class Game {
 
   //Loosing context of 'this'(this = PacMan) here, solving by sending an arrow function.
   candyEaten(candyXApprox, candyYApprox) {
-
+    //this.soundEffect.play();
+    this.pacmanChomp.play();
     // ---- Collision detection with candy --- //
     const candyIndex = this.candies.findIndex(candy => {
       if (candy.x >= candyXApprox - 10 && candy.x <= candyXApprox + 10 && candy.y >= candyYApprox - 10 && candy.y <= candyYApprox + 10) {
@@ -132,7 +142,6 @@ class Game {
 
   ghostHitPacman() {
     console.log('Hahah got ya!')
-
     this.setGhostStartPositions();
     this.pacman.lifeLost();
 
@@ -140,7 +149,7 @@ class Game {
     if (this.pacman.lives === 0) {
       this.gameOver = true;
     }
-    this.livesDiv.innerHTML = `Life: ${this.pacman.lives}`
+    this.livesDiv.innerHTML = `${this.pacman.lives} UP`
   }
 
   pacManHitGhost() {
@@ -149,12 +158,13 @@ class Game {
     this.setGhostStartPositions();
     this.pacman.lifeLost();
 
+    this.startLostLifeTimer();
     if (this.pacman.lives === 0) {
       this.gameOver = true;
       this.gameOverCallback(false);
     }
 
-    this.livesDiv.innerHTML = `Life: ${this.pacman.lives}`
+    this.livesDiv.innerHTML = `${this.pacman.lives} UP`
   }
 
   setGhostStartPositions() {
@@ -176,7 +186,15 @@ class Game {
     this.ghosts.forEach(ghost => {
       ghost.draw();
     });
-    this.livesDiv.innerHTML = `Life: ${this.pacman.lives}`
+    this.livesDiv.innerHTML = `${this.pacman.lives} UP`
+  }
+
+  startLostLifeTimer() {
+    console.log('Pac Man lost a life');
+
+    setTimeout(() => {
+      console.log('Waiting...');
+    }, 5000);
   }
 
 
