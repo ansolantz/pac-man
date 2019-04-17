@@ -7,7 +7,8 @@ class Ghost {
   direction = '';
   moveX = 0;
   moveY = 0;
-  ghostRadius = 16;
+  ghostRadius = 16;  // original size
+  // ghostRadius = 14;
   speed = 1;  //speed 1, 2, 4, 8, 32
   ctx = null;
   image = null;

@@ -9,11 +9,13 @@ class PacMan {
   candyEatenCallback = null;
   lives = 3;
   direction = null;
+  wantedDirection = null;
   speed = 2;  //speed 1, 2, 4, 8, 32
   ctx = null;
   moveX = 0;
   moveY = 0;
-  pacManRadius = 16;
+  pacManRadius = 16;  //Orginal size change back if start bugging
+  // pacManRadius = 14;
   isMouthClosing = true;
   color = 'rgb(255, 255, 1)'
   isImmortal = false;
@@ -57,12 +59,19 @@ class PacMan {
       return;
     }
 
-    if (this.checkWall()) {
-      // console.log('has hit wall');
-      return;
+    // if (this.checkWall()) {
+    //   // console.log('has hit wall');
+    //   return;
+    // }
+
+    if (this.direction !== this.wantedDirection) {
+      if (this.checkIfCanMove(this.wantedDirection)) {
+        this.direction = this.wantedDirection;
+      }
     }
 
-    if (!this.checkIfCanMove()) {
+
+    if (!this.checkIfCanMove(this.direction)) {
       // console.log('has hit a line');
       return;
     }
@@ -175,24 +184,26 @@ class PacMan {
 
   }
 
+
+
   //To do Check if thiscan be improved since it does two things.
-  checkIfCanMove() {
+  checkIfCanMove(direction) {
     let imageData = [];
     let pixelArray = [];
     let candyLoactionX = this.x;
     let candyLocationY = this.y;
     //ctx.getImageData(startCuX, startCutY, numberOfPixelsToCutX, numberOfPixelsToCutY;
     //Cutting out an array of pixels in front of PacMan for each move depending on direction.
-    if (this.direction === 'right') {
+    if (direction === 'right') {
       imageData = this.ctx.getImageData(this.x + this.pacManRadius, this.y - this.pacManRadius, 1, this.pacManRadius * 2);
       candyLoactionX = candyLoactionX + this.pacManRadius;
-    } else if (this.direction === 'up') {
+    } else if (direction === 'up') {
       imageData = this.ctx.getImageData(this.x - this.pacManRadius, this.y - this.pacManRadius, this.pacManRadius * 2, -1);
       candyLocationY = candyLocationY - this.pacManRadius;
-    } else if (this.direction === 'left') {
+    } else if (direction === 'left') {
       imageData = this.ctx.getImageData(this.x - this.pacManRadius, this.y - this.pacManRadius, -1, this.pacManRadius * 2);
       candyLoactionX = candyLoactionX - this.pacManRadius;
-    } else if (this.direction === 'down') {
+    } else if (direction === 'down') {
       imageData = this.ctx.getImageData(this.x - this.pacManRadius, this.y + this.pacManRadius, this.pacManRadius * 2, 1);
       candyLocationY = candyLocationY + this.pacManRadius;
     } else {
@@ -201,7 +212,9 @@ class PacMan {
 
     pixelArray = imageData.data;
     const nextMoveValue = pixelArray.reduce((accumulator, element) => accumulator + element);
-
+    if (nextMoveValue === 0) {
+      return true;
+    }
     // if (pixelArray.includes(250) && pixelArray.includes(252) && pixelArray.includes(182)) {
     //   //console.log('Yummy!');
 
@@ -272,8 +285,11 @@ class PacMan {
 
   }
 
-  setDirection(newDirection) {
-    this.direction = newDirection;
+  setWantedDirection(newDirection) {
+    this.wantedDirection = newDirection;
+    if (this.direction == null) {
+      this.direction = this.wantedDirection;
+    }
   }
 
   lifeLost() {

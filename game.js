@@ -32,21 +32,42 @@ class Game {
     //this.candy = new Candy(200, 40, this.canvas);
     //this.candies.push(new Candy(200, 40, this.canvas));
 
-    this.candyX = 50;
-    this.candyY = 27;
+    // this.candyX = 50;
+    // this.candyY = 27;
 
-    for (let i = 1; i < 9; i++) {
-      this.candies.push(new Candy(this.candyX, this.candyY, this.canvas))
-      this.candyX = this.candyX + 50;
-      this.candyY = this.candyY;
-    }
+    // for (let i = 1; i < 9; i++) {
+    //   this.candies.push(new Candy(this.candyX, this.candyY, this.canvas))
+    //   this.candyX = this.candyX + 50;
+    //   this.candyY = this.candyY;
+    // }
+    this.candies.push(new Candy(66, 18, this.canvas))
+    this.candies.push(new Candy(164, 18, this.canvas))
+    this.candies.push(new Candy(312, 18, this.canvas))
+    this.candies.push(new Candy(410, 18, this.canvas))
 
+    this.candies.push(new Candy(18, 66, this.canvas))
+    this.candies.push(new Candy(115, 66, this.canvas))
+    this.candies.push(new Candy(213, 66, this.canvas))
+    this.candies.push(new Candy(263, 66, this.canvas))
+    this.candies.push(new Candy(361, 66, this.canvas))
+    this.candies.push(new Candy(459, 66, this.canvas))
+
+    this.candies.push(new Candy(66, 114, this.canvas))
+    this.candies.push(new Candy(164, 114, this.canvas))
+    this.candies.push(new Candy(238, 114, this.canvas))
+    this.candies.push(new Candy(312, 114, this.canvas))
+    this.candies.push(new Candy(410, 114, this.canvas))
+
+    this.candies.push(new Candy(66, 181, this.canvas))
+    this.candies.push(new Candy(164, 165, this.canvas))
+    this.candies.push(new Candy(312, 181, this.canvas))
+    this.candies.push(new Candy(410, 181, this.canvas))
     //Create 4 ghosts i array
-    //this.ghost = new Ghost(300, 200, this.canvas, 'rgb(255, 138, 170', () => this.ghostHitPacman());
-    this.ghosts.push(new Ghost(236, 200, this.canvas, 'rgb(255, 138, 170', () => this.ghostHitPacman()));
-    this.ghosts.push(new Ghost(236, 200, this.canvas, 'rgb(36, 180, 237', () => this.ghostHitPacman()));
-    this.ghosts.push(new Ghost(236, 200, this.canvas, 'rgb(244, 10, 29', () => this.ghostHitPacman()));
-    this.ghosts.push(new Ghost(236, 200, this.canvas, 'rgb(244, 132, 3', () => this.ghostHitPacman()));
+    
+    this.ghosts.push(new Ghost(230, 200, this.canvas, 'rgb(255, 138, 170', () => this.ghostHitPacman()));
+    this.ghosts.push(new Ghost(230, 200, this.canvas, 'rgb(36, 180, 237', () => this.ghostHitPacman()));
+    this.ghosts.push(new Ghost(230, 200, this.canvas, 'rgb(244, 10, 29', () => this.ghostHitPacman()));
+    this.ghosts.push(new Ghost(230, 200, this.canvas, 'rgb(244, 132, 3', () => this.ghostHitPacman()));
 
     // let myCandyEatenArrowFunction = () => this.candyEaten()
     // this.pacman = new PacMan(50, 50, this.canvas, myCandyEatenArrowFunction);
@@ -67,16 +88,16 @@ class Game {
     document.onkeydown = (event) => {
       switch (event.keyCode) {
         case 37:
-          this.pacman.setDirection('left');
+          this.pacman.setWantedDirection('left');
           break;
         case 38:
-          this.pacman.setDirection('up');
+          this.pacman.setWantedDirection('up');
           break;
         case 39:
-          this.pacman.setDirection('right');
+          this.pacman.setWantedDirection('right');
           break;
         case 40:
-          this.pacman.setDirection('down');
+          this.pacman.setWantedDirection('down');
           break;
       }
     };
