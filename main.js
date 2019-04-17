@@ -7,6 +7,7 @@ function main() {
 
   const mainElement = document.querySelector('main');
 
+
   function buildDom(html) {
     mainElement.innerHTML = html;
     return mainElement;
@@ -30,6 +31,7 @@ function main() {
     // console.log('you are on the game screen')
 
     const gameScreen = buildDom(`
+      <div id="lives"></div>
       <section class="game-container">
       <canvas></canvas>
       </section>
@@ -45,7 +47,10 @@ function main() {
     canvasElement.setAttribute('width', width);
     canvasElement.setAttribute('height', height);
 
-    const game = new Game(canvasElement, buildGameOverScreen);
+    const livesDiv = document.querySelector('#lives');
+    //lives.innerHTML = "life: ";
+
+    const game = new Game(canvasElement, buildGameOverScreen, livesDiv);
     game.startLoop();
 
 
@@ -53,16 +58,23 @@ function main() {
   }
 
 
-  function buildGameOverScreen() {
+  function buildGameOverScreen(pacmanWon) {
     // console.log('game over');
     const gameOverScreen = buildDom(`
     <section>
-    <h1>Game Over</h1>
+    <h2>Game Over</h2>
+    <div id="pacman-won"></div>
     <button class="restart-button">Restart</buton>
     </section>
     `);
-
+    const pacmanWonDiv = document.querySelector('#pacman-won');
     const restartButton = document.querySelector('.restart-button');
+    if (pacmanWon) {
+      pacmanWonDiv.innerHTML = 'Yey Pac Man won!!'
+    } else {
+      pacmanWonDiv.innerHTML = 'Sorry!! Pac Man looses'
+    }
+
     restartButton.addEventListener('click', buildGameScreen);
   }
 

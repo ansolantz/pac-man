@@ -8,14 +8,16 @@ class Game {
   candy = null;
   candies = []
   gameOverCallback;
+  pacManWins = null;
 
-  constructor(canvas, gameOverCallback) {
+  constructor(canvas, gameOverCallback, livesDiv) {
     console.log('Creating Game');
 
     this.canvas = canvas;
     this.ctx = this.canvas.getContext('2d');
     this.canvas = canvas;
     this.gameOverCallback = gameOverCallback;
+    this.livesDiv = livesDiv;
 
 
     //this.candy = new Candy(200, 40, this.canvas);
@@ -24,7 +26,7 @@ class Game {
     this.candyX = 50;
     this.candyY = 27;
 
-    for (let i = 1; i < 10; i++) {
+    for (let i = 1; i < 9; i++) {
       this.candies.push(new Candy(this.candyX, this.candyY, this.canvas))
       this.candyX = this.candyX + 50;
       this.candyY = this.candyY;
@@ -75,7 +77,6 @@ class Game {
   startLoop() {
 
     // this.pacman = new PacMan(50, 50, this.canvas, this.candyEaten);
-
     //console.log('Im in the looooooop');
 
     const loop = () => {
@@ -113,6 +114,8 @@ class Game {
     // ---- Collision detection with candy --- //
     const candyIndex = this.candies.findIndex(candy => {
       if (candy.x >= candyXApprox - 10 && candy.x <= candyXApprox + 10 && candy.y >= candyYApprox - 10 && candy.y <= candyYApprox + 10) {
+        console.log('Candy x ', candy.x);
+        console.log('Candy y ', candy.y);
         console.log('Yummy! Candy found at x ', candyXApprox, ' and y ', candyYApprox);
         return true;
       } else {
@@ -122,7 +125,8 @@ class Game {
     this.candies.splice(candyIndex, 1)
     if (this.candies.length === 0) {
       this.gameOver = true;
-      this.gameOverCallback();
+
+      this.gameOverCallback(true);
     }
   }
 
@@ -136,6 +140,7 @@ class Game {
     if (this.pacman.lives === 0) {
       this.gameOver = true;
     }
+    this.livesDiv.innerHTML = `Life: ${this.pacman.lives}`
   }
 
   pacManHitGhost() {
@@ -143,10 +148,13 @@ class Game {
     console.log('Oh no!!')
     this.setGhostStartPositions();
     this.pacman.lifeLost();
+
     if (this.pacman.lives === 0) {
       this.gameOver = true;
-      this.gameOverCallback();
+      this.gameOverCallback(false);
     }
+
+    this.livesDiv.innerHTML = `Life: ${this.pacman.lives}`
   }
 
   setGhostStartPositions() {
@@ -155,6 +163,7 @@ class Game {
       ghost.x = 236;
       ghost.y = 200;
     });
+
   }
 
 
@@ -167,7 +176,7 @@ class Game {
     this.ghosts.forEach(ghost => {
       ghost.draw();
     });
-
+    this.livesDiv.innerHTML = `Life: ${this.pacman.lives}`
   }
 
 
