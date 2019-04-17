@@ -28,3 +28,9 @@ desktop.ini
 
 # dotenv
 .env
+
+
+#babel
+.babelrc
+package-lock.json
+runBabel.sh

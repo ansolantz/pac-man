@@ -158,6 +158,11 @@ class Ghost {
 
   }
 
+  hideGhost() {
+    this.x = -100;
+    this.y = -100;
+  }
+
   checkColor(rgbNumber1, rgbNumber2, rgbNumber3, pixelArray) {
     let found = false;
     for (var i = 0; i < pixelArray.length; i++) {

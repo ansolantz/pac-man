@@ -132,13 +132,14 @@ class Game {
 
   ghostHitPacman() {
     console.log('Hahah got ya!')
-    this.setGhostStartPositions();
     this.pacman.lifeLost();
-
+    this.pacmanDeath.play();
     //this.pacman.startImmortal();
     if (this.pacman.lives === 0) {
       this.gameOver = true;
       this.gameOverCallback(false);
+    } else {
+      this.startLostLifeTimer();
     }
     this.livesDiv.innerHTML = `${this.pacman.lives} UP`
   }
@@ -146,13 +147,13 @@ class Game {
   pacManHitGhost() {
 
     console.log('Oh no!!')
-    this.setGhostStartPositions();
     this.pacman.lifeLost();
-
-    this.startLostLifeTimer();
+    this.pacmanDeath.play();
     if (this.pacman.lives === 0) {
       this.gameOver = true;
       this.gameOverCallback(false);
+    } else {
+      this.startLostLifeTimer();
     }
 
     this.livesDiv.innerHTML = `${this.pacman.lives} UP`
@@ -166,7 +167,6 @@ class Game {
     });
 
   }
-
 
   drawCanvas() {
     this.level.draw();
@@ -183,9 +183,16 @@ class Game {
   startLostLifeTimer() {
     console.log('Pac Man lost a life');
 
+    this.ghosts.forEach(ghost => {
+      ghost.hideGhost();
+    });
+    this.pacman.hidePackMan();
+
     setTimeout(() => {
       console.log('Waiting...');
-    }, 5000);
+      this.pacman.setStartPosition();
+      this.setGhostStartPositions();
+    }, 3000);
   }
 
 

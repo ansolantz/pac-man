@@ -51,6 +51,8 @@ function main() {
     //lives.innerHTML = "life: ";
 
     const game = new Game(canvasElement, buildGameOverScreen, livesDiv);
+    //Playing sound
+
     game.startLoop();
 
 

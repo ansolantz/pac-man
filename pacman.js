@@ -75,6 +75,11 @@ class PacMan {
     }, 5000);
   }
 
+  hidePackMan() {
+    this.x = -100;
+    this.y = -100;
+  }
+
   draw() {
     //this.ctx.drawImage(this.img, this.x, this.y, 50, 50);
     // ctx.arc(x, y, radius, startAngle, endAngle)
@@ -265,12 +270,15 @@ class PacMan {
     }
   }
 
-  lifeLost() {
+  setStartPosition() {
     this.x = 25;
     this.y = 25;
     this.isMouthClosing = true;
     this.animationCounter = 0;
     this.direction = null;
+  }
+
+  lifeLost() {
     this.lives--;
     console.log('Life: ', this.lives)
   }
