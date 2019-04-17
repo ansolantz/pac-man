@@ -25,13 +25,14 @@ class PacMan {
   imgHeight = '';
   img = document.createElement('img');
 
-  constructor(x, y, canvas, candyEatenCallback) {
+  constructor(x, y, canvas, candyEatenCallback, pacManHitGhostCallback) {
     console.log('Creating Pack Man');
     this.canvas = canvas;
     this.x = x;
     this.y = y;
     this.candyEatenCallback = candyEatenCallback;
     this.ctx = this.canvas.getContext('2d');
+    this.pacManHitGhostCallback = pacManHitGhostCallback;
 
     // console.log("Canvas width is ", this.canvas.width);
     // console.log("Canvas height is ", this.canvas.height);
@@ -218,6 +219,20 @@ class PacMan {
     } else if (this.checkColor(36, 22, 255, pixelArray)) {
       // Border color "rgb(36, 2, 255)";
       return false;
+    } else if (this.checkColor(255, 138, 170, pixelArray) ||
+      this.checkColor(36, 180, 237, pixelArray) ||
+      this.checkColor(244, 10, 29, pixelArray) ||
+      this.checkColor(244, 132, 3, pixelArray)) {
+      // Ghost colors 
+      //"rgb(255, 138, 170";
+      // 'rgb(36, 180, 237'
+      // 'rgb(244, 10, 29'
+      // 'rgb(244, 132, 3'
+
+      this.pacManHitGhostCallback(); // Calls pacmanHitGhost() in games.js
+
+      //this.startLostLifeTimer();
+      return false;
     } else {
       return (nextMoveValue === 0);
     }
@@ -269,6 +284,16 @@ class PacMan {
     this.direction = null;
     this.lives--;
     console.log('Life: ', this.lives)
+  }
+
+
+  startLostLifeTimer() {
+
+    console.log('Lost a life');
+
+    setTimeout(() => {
+      this.lifeLost();
+    }, 5000);
   }
 }
 

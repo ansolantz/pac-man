@@ -74,6 +74,7 @@ class Ghost {
 
   }
 
+
   randomDirection() {
     //--- Random ghost direction ---//
     let directions = ['right', 'up', 'left', 'down'];
@@ -139,6 +140,7 @@ class Ghost {
 
     pixelArray = imageData.data;
     const nextMoveValue = pixelArray.reduce((accumulator, element) => accumulator + element);
+
     if (nextMoveValue === 0) {
       return true;
     }

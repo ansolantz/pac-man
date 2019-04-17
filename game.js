@@ -21,10 +21,10 @@ class Game {
     //this.candy = new Candy(200, 40, this.canvas);
     //this.candies.push(new Candy(200, 40, this.canvas));
 
-    this.candyX = 300;
-    this.candyY = 50
+    this.candyX = 50;
+    this.candyY = 27;
 
-    for (let i = 1; i < 5; i++) {
+    for (let i = 1; i < 10; i++) {
       this.candies.push(new Candy(this.candyX, this.candyY, this.canvas))
       this.candyX = this.candyX + 50;
       this.candyY = this.candyY;
@@ -32,10 +32,10 @@ class Game {
 
     //Create 4 ghosts i array
     //this.ghost = new Ghost(300, 200, this.canvas, 'rgb(255, 138, 170', () => this.ghostHitPacman());
-    this.ghosts.push(new Ghost(300, 200, this.canvas, 'rgb(255, 138, 170', () => this.ghostHitPacman()));
-    this.ghosts.push(new Ghost(300, 200, this.canvas, 'rgb(36, 180, 237', () => this.ghostHitPacman()));
-    this.ghosts.push(new Ghost(300, 200, this.canvas, 'rgb(244, 10, 29', () => this.ghostHitPacman()));
-    this.ghosts.push(new Ghost(300, 200, this.canvas, 'rgb(244, 132, 3', () => this.ghostHitPacman()));
+    this.ghosts.push(new Ghost(236, 200, this.canvas, 'rgb(255, 138, 170', () => this.ghostHitPacman()));
+    this.ghosts.push(new Ghost(236, 200, this.canvas, 'rgb(36, 180, 237', () => this.ghostHitPacman()));
+    this.ghosts.push(new Ghost(236, 200, this.canvas, 'rgb(244, 10, 29', () => this.ghostHitPacman()));
+    this.ghosts.push(new Ghost(236, 200, this.canvas, 'rgb(244, 132, 3', () => this.ghostHitPacman()));
 
     // let myCandyEatenArrowFunction = () => this.candyEaten()
     // this.pacman = new PacMan(50, 50, this.canvas, myCandyEatenArrowFunction);
@@ -45,7 +45,7 @@ class Game {
 
     this.pacman = new PacMan(25, 25, this.canvas, (candyX, candyY) => {
       this.candyEaten(candyX, candyY)
-    });
+    }, () => this.pacManHitGhost());
 
     // let myCandyEatenFunction = this.candyEaten
     // this.pacman = new PacMan(50, 50, this.canvas, myCandyEatenFunction);
@@ -129,12 +129,32 @@ class Game {
   ghostHitPacman() {
     console.log('Hahah got ya!')
 
+    this.setGhostStartPositions();
     this.pacman.lifeLost();
 
-    this.pacman.startImmortal();
+    //this.pacman.startImmortal();
     if (this.pacman.lives === 0) {
       this.gameOver = true;
     }
+  }
+
+  pacManHitGhost() {
+
+    console.log('Oh no!!')
+    this.setGhostStartPositions();
+    this.pacman.lifeLost();
+    if (this.pacman.lives === 0) {
+      this.gameOver = true;
+      this.gameOverCallback();
+    }
+  }
+
+  setGhostStartPositions() {
+    console.log('ghosts starts overs')
+    this.ghosts.forEach(ghost => {
+      ghost.x = 236;
+      ghost.y = 200;
+    });
   }
 
 
