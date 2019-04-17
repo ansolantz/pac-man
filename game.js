@@ -63,7 +63,7 @@ class Game {
     this.candies.push(new Candy(312, 181, this.canvas))
     this.candies.push(new Candy(410, 181, this.canvas))
     //Create 4 ghosts i array
-    
+
     this.ghosts.push(new Ghost(230, 200, this.canvas, 'rgb(255, 138, 170', () => this.ghostHitPacman()));
     this.ghosts.push(new Ghost(230, 200, this.canvas, 'rgb(36, 180, 237', () => this.ghostHitPacman()));
     this.ghosts.push(new Ghost(230, 200, this.canvas, 'rgb(244, 10, 29', () => this.ghostHitPacman()));
@@ -169,6 +169,7 @@ class Game {
     //this.pacman.startImmortal();
     if (this.pacman.lives === 0) {
       this.gameOver = true;
+      this.gameOverCallback(false);
     }
     this.livesDiv.innerHTML = `${this.pacman.lives} UP`
   }

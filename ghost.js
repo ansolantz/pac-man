@@ -152,12 +152,11 @@ class Ghost {
     } else if (this.checkColor(255, 255, 1, pixelArray)) {
       //Color of Pac Man 'rgb(255, 255, 1)'
 
-      // Color of borders "rgb(14, 2, 248)";
       this.ghostHitPacmanCallback(); // Calls ghostHitPacman() in games.js
       //console.log('Haha
       return true;
-    } else if (this.checkColor(36, 2, 255, pixelArray)) {
-      // Border color "rgb(36, 2, 255)";
+    } else if (this.checkColor(20, 20, 255, pixelArray)) {
+      // Border color "rgb(20, 20, 255)";
       return false;
     }
 

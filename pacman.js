@@ -229,8 +229,8 @@ class PacMan {
       //console.log('Yummy!');
       this.candyEatenCallback(candyLoactionX, candyLocationY); // Calls candyFound() in games.js
       return true;
-    } else if (this.checkColor(36, 22, 255, pixelArray)) {
-      // Border color "rgb(36, 2, 255)";
+    } else if (this.checkColor(20, 20, 255, pixelArray)) {
+      // Border color "rgb(20, 20, 255)";;
       return false;
     } else if (this.checkColor(255, 138, 170, pixelArray) ||
       this.checkColor(36, 180, 237, pixelArray) ||
