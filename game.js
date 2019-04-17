@@ -1,23 +1,14 @@
 'use strict'
 
 class Game {
-  pacman = null;
-  ghosts = [];
-  levelNumber = 1;
-  gameOver = false;
-  candy = null;
-  candies = []
-  gameOverCallback;
-  pacManWins = null;
-  soundEffect;
 
-  soundBeginning;
-  pacmanDeath;
-  pacmanChomp;
 
   constructor(canvas, gameOverCallback, livesDiv) {
     console.log('Creating Game');
-
+    this.ghosts = [];
+    this.levelNumber = 1;
+    this.gameOver = false;
+    this.candies = []
     this.canvas = canvas;
     this.ctx = this.canvas.getContext('2d');
     this.canvas = canvas;
@@ -27,19 +18,6 @@ class Game {
     this.pacmanDeath = new Audio('sounds/pacman_death.wav');
     this.pacmanChomp = new Audio('sounds/pacman_chomp.wav');
 
-
-
-    //this.candy = new Candy(200, 40, this.canvas);
-    //this.candies.push(new Candy(200, 40, this.canvas));
-
-    // this.candyX = 50;
-    // this.candyY = 27;
-
-    // for (let i = 1; i < 9; i++) {
-    //   this.candies.push(new Candy(this.candyX, this.candyY, this.canvas))
-    //   this.candyX = this.candyX + 50;
-    //   this.candyY = this.candyY;
-    // }
     this.candies.push(new Candy(66, 18, this.canvas))
     this.candies.push(new Candy(164, 18, this.canvas))
     this.candies.push(new Candy(312, 18, this.canvas))
@@ -79,11 +57,7 @@ class Game {
       this.candyEaten(candyX, candyY)
     }, () => this.pacManHitGhost());
 
-    // let myCandyEatenFunction = this.candyEaten
-    // this.pacman = new PacMan(50, 50, this.canvas, myCandyEatenFunction);
-
     this.level = new Level(this.canvas, this.levelNumber);
-
 
     document.onkeydown = (event) => {
       switch (event.keyCode) {
@@ -106,16 +80,11 @@ class Game {
 
   startLoop() {
 
-    // this.pacman = new PacMan(50, 50, this.canvas, this.candyEaten);
-    //console.log('Im in the looooooop');
-
     const loop = () => {
 
       this.updateCanvas();
       this.clearCanvas();
       this.drawCanvas();
-
-      // console.log(this.pacman.direction)
 
       if (this.gameOver === false) {
         window.requestAnimationFrame(loop);
@@ -223,6 +192,4 @@ class Game {
   setGameOver(buildGameOverScreen) {
     this.buildGameOverScreen = buildGameOverScreen;
   }
-
-
 }

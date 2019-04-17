@@ -2,21 +2,15 @@
 console.log('ghost')
 
 class Ghost {
-  x = 0;
-  y = 0;
-  direction = '';
-  moveX = 0;
-  moveY = 0;
-  ghostRadius = 16;  // original size
-  // ghostRadius = 14;
-  speed = 1;  //speed 1, 2, 4, 8, 32
-  ctx = null;
-  image = null;
-
-
   constructor(x, y, canvas, color, ghostHitPacmanCallback) {
     this.x = x;
     this.y = y;
+
+    this.direction = '';
+    this.moveX = 0;
+    this.moveY = 0;
+    this.ghostRadius = 16;  // original size
+    this.speed = 1;  //speed 1, 2, 4, 8, 32
     this.canvas = canvas;
     this.ctx = this.canvas.getContext('2d');
     this.color = color;
@@ -81,8 +75,6 @@ class Ghost {
     let directions = ['right', 'up', 'left', 'down'];
     let randomDirectionIndex = Math.floor((Math.random() * directions.length));
     this.direction = directions[randomDirectionIndex];
-    //console.log('Random direction index ', randomDirectionIndex);
-    //console.log(this.direction);
   }
 
   update() {
@@ -93,13 +85,11 @@ class Ghost {
     }
 
     if (this.checkWall()) {
-      // console.log('ghost has hit wall');
       this.randomDirection();
       return;
     }
 
     if (!this.checkIfCanMove()) {
-      // console.log('has hit a line');
       //Random new direction
       this.randomDirection();
       return;
@@ -198,8 +188,5 @@ class Ghost {
         return true;
       }
     }
-
   }
-
-
 }

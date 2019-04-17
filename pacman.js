@@ -3,58 +3,32 @@ console.log('pac man')
 
 class PacMan {
 
-  x = 0;
-  y = 0;
-  canvas;
-  candyEatenCallback = null;
-  lives = 3;
-  direction = null;
-  wantedDirection = null;
-  speed = 2;  //speed 1, 2, 4, 8, 32
-  ctx = null;
-  moveX = 0;
-  moveY = 0;
-  pacManRadius = 16;  //Orginal size change back if start bugging
-  // pacManRadius = 14;
-  isMouthClosing = true;
-  color = 'rgb(255, 255, 1)'
-  isImmortal = false;
 
-  animationCounter = 0;
-  animationMaxValue = 0.24;  //Controles the animation of PacMans mouth
-
-  imgId = '';
-  imgHeight = '';
-  img = document.createElement('img');
 
   constructor(x, y, canvas, candyEatenCallback, pacManHitGhostCallback) {
     console.log('Creating Pack Man');
-    this.canvas = canvas;
     this.x = x;
     this.y = y;
     this.candyEatenCallback = candyEatenCallback;
-    this.ctx = this.canvas.getContext('2d');
     this.pacManHitGhostCallback = pacManHitGhostCallback;
 
-    // console.log("Canvas width is ", this.canvas.width);
-    // console.log("Canvas height is ", this.canvas.height);
+    this.lives = 3;
+    this.direction = null;
+    this.wantedDirection = null;
+    this.speed = 2;  //speed 1, 2, 4, 8, 32
+    this.moveX = 0;
+    this.moveY = 0;
+    this.pacManRadius = 16;  //Orginal size change back if start bugging
+    this.isMouthClosing = true;
+    this.color = 'rgb(255, 255, 1)'
 
-    // this.img.src = 'img/pacman.gif';
-    // this.img.querySelector("img")
-    // this.img.setAttribute('id', 'pacman');
-    // this.img.setAttribute("width", "32px");
-    // this.img.setAttribute("height", "32px");
-
-    //console.log('elementbyid ', document.getElementById('pacman').style.height);
-    // to do: check width, height on img! 
-    // this.imgHeight = parseInt(this.img.getAttribute('height'));
-    // this.imgWidth = parseInt(this.img.getAttribute('width'));
-    // console.log("Image height: ", this.imgHeight);
-    // console.log("Image width: ", this.imgWidth);
+    this.animationCounter = 0;
+    this.animationMaxValue = 0.24;  //Controles the animation of PacMans mouth
+    this.canvas = canvas;
+    this.ctx = this.canvas.getContext('2d');
   }
 
   update() {
-
     if (this.direction === null) {
       return;
     }
@@ -72,7 +46,6 @@ class PacMan {
 
 
     if (!this.checkIfCanMove(this.direction)) {
-      // console.log('has hit a line');
       return;
     }
 
