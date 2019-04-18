@@ -33,6 +33,8 @@ class PacMan {
       return;
     }
 
+
+
     // if (this.checkWall()) {
     //   // console.log('has hit wall');
     //   return;
@@ -48,6 +50,8 @@ class PacMan {
     if (!this.checkIfCanMove(this.direction)) {
       return;
     }
+
+    this.checkTelePort()
 
     this.moveX = 0;
     this.moveY = 0;
@@ -241,23 +245,16 @@ class PacMan {
     return found;
   }
 
-  checkWall() {
+  checkTelePort() {
 
     if (this.direction === 'right') {
       if (this.x + this.pacManRadius + this.speed >= parseInt(this.canvas.width)) {
-        return true;
-      }
-    } else if (this.direction === 'up') {
-      if (this.y - this.pacManRadius <= 0) {
-        return true;
+        this.x = this.pacManRadius * 2 - 1;
       }
     } else if (this.direction === 'left') {
       if (this.x - this.pacManRadius <= 0) {
-        return true;
-      }
-    } else if (this.direction === 'down') {
-      if (this.y + this.pacManRadius + this.speed >= parseInt(this.canvas.height)) {
-        return true;
+        this.x = 476 - this.pacManRadius * 2 + 1;
+
       }
     }
 

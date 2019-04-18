@@ -18,36 +18,16 @@ html {
   box-sizing: inherit;
 }
 
-body {
-  margin: 0;
-  padding: 0;
-  background-color: #000000;
-}
-
 div {
   display: block;
-}
-
-header {
-  margin-top: 20px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  /* align-content: center; */
-}
-
-section {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  align-content: center;
 }
 
 /* ---- typography ---- */
 
 body {
-  color: #111;
+  margin: 0;
+  padding: 0;
+  background-color: #000000;
   font-family: 'Courier New', Courier, monospace;
   font-size: 16px;
   line-height: 147%;
@@ -65,16 +45,10 @@ h1 {
 h2 {
   font-family: 'Arcade Classic', 'Courier New', Courier;
   text-align: center;
-  color: Yellow;
+  color: #f80126;
+  font-weight: 200;
   font-size: 30px;
   padding: 5px;
-}
-
-.titleSign {
-  /* width: 350px;
-  background-color: #f67622;
-  border: 1px solid #f80126;
-  border-radius: 20px; */
 }
 
 h3 {}
@@ -85,11 +59,57 @@ p {
 
 /* ---- layout ---- */
 
+header {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* align-content: center; */
+}
+
+section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+}
+
+/* ---- CLASSES ---- */
+
+.titleSign {
+  /* width: 350px;
+  background-color: #f67622;
+  border: 1px solid #f80126;
+  border-radius: 20px; */
+}
+
+.section {
+  margin-bottom: 20px;
+  padding-top: 20px;
+}
+
+/* ---- ID's ---- */
+
 #site-header {
   font-family: 'Arcade Classic', 'Courier New', Courier;
   padding: 30px 0;
   color: white;
   background: #111;
+}
+
+#lives {
+  font-family: 'Arcade Classic', 'Courier New', Courier;
+  color: #ffffff;
+  font-size: 20px;
+  padding: 4px 0 4px 0;
+}
+
+#pacman-won {
+  font-family: 'Arcade Classic', 'Courier New', Courier;
+  color: #ffffff;
+  font-size: 24px;
+  padding: 4px 0 4px 0;
 }
 
 #site-footer {
@@ -102,16 +122,30 @@ p {
   margin-bottom: 60px;
 }
 
-.section {
-  margin-bottom: 20px;
-  padding-top: 20px;
+/* ---- components ---- */
+
+.button, .start-button, .restart-button {
+  margin: 5px 0 5px 0;
+  -moz-box-shadow: 0px 1px 0px 0px #fff6af;
+  -webkit-box-shadow: 0px 1px 0px 0px #fff6af;
+  box-shadow: 0px 1px 0px 0px #fff6af;
+  background-color: #ffec64;
+  border: 1px solid #ffaa22;
+  cursor: pointer;
+  color: #000000;
+  font-family: 'Arcade Classic', 'Courier New', Courier;
+  font-size: 15px;
+  font-weight: 500;
+  padding: 8px 20px;
+  text-decoration: none;
 }
 
-#pacman-won {
-  font-family: 'Arcade Classic', 'Courier New', Courier;
-  color: #ffffff;
-  font-size: 24px;
-  padding: 4px 0 4px 0;
+.button, .start-button, .restart-button:hover {
+  background-color: #ffab23;
+}
+
+.button, .start-button, .restart-button:active {
+  border: 1px solid #ffaa22;
 }
 
 @media (min-width: 768px) {
@@ -123,52 +157,14 @@ p {
     align-items: center;
     align-content: center;
   }
-  /* ---- components ---- */
-  /* .button {
-    width: 100%;
-    background-color: blue;
-    color: #fff;
-    border: 1px solid #fff
-  } */
-  .button, .restart-button {
-    margin: 5px 0 5px 0;
-    -moz-box-shadow: 0px 1px 0px 0px #fff6af;
-    -webkit-box-shadow: 0px 1px 0px 0px #fff6af;
-    box-shadow: 0px 1px 0px 0px #fff6af;
-    background-color: #ffec64;
-    border: 1px solid #ffaa22;
-    cursor: pointer;
-    color: #000000;
-    font-family: 'Arcade Classic', 'Courier New', Courier;
-    font-size: 15px;
-    font-weight: 500;
-    padding: 8px 20px;
-    text-decoration: none;
-  }
-  .button, .restart-button:hover {
-    background-color: #ffab23;
-  }
-  .button, .restart-button:active {
-    border: 1px solid #ffaa22;
-  }
-  /* .button-alt {
-    color: blue;
-    background-color: #fff;
-  } */
   /* ---- section ---- */
-  section.testimonials .button {
+  /* section.testimonials .button {
     margin-bottom: 10px;
-  }
+  } */
   .game-container {
     width: 476px;
     height: 560px;
     /* border: 1px solid blue; */
-  }
-  #lives {
-    font-family: 'Arcade Classic', 'Courier New', Courier;
-    color: #ffffff;
-    font-size: 20px;
-    padding: 4px 0 4px 0;
   }
 }
 
@@ -181,49 +177,9 @@ p {
     align-items: center;
     align-content: center;
   }
-  /* ---- components ---- */
-  /* .button {
-    width: 100%;
-    background-color: blue;
-    color: #fff;
-    border: 1px solid #fff
-  } */
-  .button, .start-button, .restart-button {
-    margin: 5px 0 5px 0;
-    -moz-box-shadow: 0px 1px 0px 0px #fff6af;
-    -webkit-box-shadow: 0px 1px 0px 0px #fff6af;
-    box-shadow: 0px 1px 0px 0px #fff6af;
-    background-color: #ffec64;
-    border: 1px solid #ffaa22;
-    cursor: pointer;
-    color: #000000;
-    font-family: 'Courier New', Courier, monospace;
-    font-size: 15px;
-    font-weight: 500;
-    padding: 8px 20px;
-    text-decoration: none;
-  }
-  .button, .start-button, .restart-button:hover {
-    background-color: #ffab23;
-  }
-  .button, .start-button, .restart-button:active {
-    border: 1px solid #ffaa22;
-  }
-  .button-alt {
-    color: blue;
-    background-color: #fff;
-  }
-  /* ---- section ---- */
-  section.testimonials .button {
-    margin-bottom: 10px;
-  }
   .game-container {
     width: 476px;
     height: 320px;
     /* border: 1px solid blue; */
-  }
-  #lives {
-    color: #ffffff;
-    padding: 4px 0 4px 0;
   }
 }

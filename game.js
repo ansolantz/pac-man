@@ -14,7 +14,7 @@ class Game {
     this.canvas = canvas;
     this.gameOverCallback = gameOverCallback;
     this.livesDiv = livesDiv;
-    this.soundBeginning = new Audio('sounds/pacman_beginning.wav');
+
     this.pacmanDeath = new Audio('sounds/pacman_death.wav');
     this.pacmanChomp = new Audio('sounds/pacman_chomp.wav');
 
@@ -40,8 +40,8 @@ class Game {
     this.candies.push(new Candy(164, 165, this.canvas))
     this.candies.push(new Candy(312, 181, this.canvas))
     this.candies.push(new Candy(410, 181, this.canvas))
-    //Create 4 ghosts i array
 
+    //Create 4 ghosts in array
     this.ghosts.push(new Ghost(230, 200, this.canvas, 'rgb(255, 138, 170', () => this.ghostHitPacman()));
     this.ghosts.push(new Ghost(230, 200, this.canvas, 'rgb(36, 180, 237', () => this.ghostHitPacman()));
     this.ghosts.push(new Ghost(230, 200, this.canvas, 'rgb(244, 10, 29', () => this.ghostHitPacman()));
@@ -53,6 +53,8 @@ class Game {
     // --- Sending Arrow Function  to not loose context of this ----- //
     //https://stackoverflow.com/questions/20279484/how-to-access-the-correct-this-inside-a-callback
 
+
+    // starting at 25, 25 working  25, 215,
     this.pacman = new PacMan(25, 25, this.canvas, (candyX, candyY) => {
       this.candyEaten(candyX, candyY)
     }, () => this.pacManHitGhost());

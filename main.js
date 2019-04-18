@@ -16,12 +16,16 @@ function main() {
   function buildSplashScreen() {     // Building splash screen
     const splashScreen = buildDom(`
       <section>
-      <h2>Click start to play</h2>
+      <h2>Ready!</h2>
       <button class="start-button">Start</button>
       </section>
       `);
 
     const startButton = document.querySelector('.start-button');
+
+    //Playing sound
+    // const soundBeginning = new Audio('sounds/pacman_beginning.wav');
+    // soundBeginning.play();
 
     startButton.addEventListener('click', buildGameScreen)
   }
@@ -51,7 +55,7 @@ function main() {
     //lives.innerHTML = "life: ";
 
     const game = new Game(canvasElement, buildGameOverScreen, livesDiv);
-    //Playing sound
+
 
     game.startLoop();
 
@@ -72,9 +76,9 @@ function main() {
     const pacmanWonDiv = document.querySelector('#pacman-won');
     const restartButton = document.querySelector('.restart-button');
     if (pacmanWon) {
-      pacmanWonDiv.innerHTML = 'Yey Pac Man won!!'
+      pacmanWonDiv.innerHTML = 'Pac Man won!'
     } else {
-      pacmanWonDiv.innerHTML = 'Sorry!! Pac Man looses'
+      pacmanWonDiv.innerHTML = 'Sorry!'
     }
 
     restartButton.addEventListener('click', buildGameScreen);
