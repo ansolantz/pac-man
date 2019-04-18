@@ -4,7 +4,6 @@ console.log('pac man')
 class PacMan {
 
 
-
   constructor(x, y, canvas, candyEatenCallback, pacManHitGhostCallback) {
     console.log('Creating Pack Man');
     this.x = x;
@@ -268,8 +267,10 @@ class PacMan {
   }
 
   setStartPosition() {
+    // this.x = 25;
+    // this.y = 25;
     this.x = 25;
-    this.y = 25;
+    this.y = 215
     this.isMouthClosing = true;
     this.animationCounter = 0;
     this.direction = null;

@@ -55,7 +55,7 @@ class Game {
 
 
     // starting at 25, 25 working  25, 215,
-    this.pacman = new PacMan(25, 25, this.canvas, (candyX, candyY) => {
+    this.pacman = new PacMan(25, 215, this.canvas, (candyX, candyY) => {
       this.candyEaten(candyX, candyY)
     }, () => this.pacManHitGhost());
 
