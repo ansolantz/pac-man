@@ -55,14 +55,28 @@ class Ghost {
 
     // Drawing ghost eyes's -------------
     this.ctx.beginPath();
-    this.ctx.arc(this.x - 6, this.y - 6, 3, 0, 2 * Math.PI);
+    this.ctx.arc(this.x - 6, this.y - 6, 4, 0, 2 * Math.PI);
     this.ctx.fillStyle = "rgb(255, 255, 255)";
     this.ctx.fill();
     this.ctx.closePath();
 
     this.ctx.beginPath();
-    this.ctx.arc(this.x + 6, this.y - 6, 3, 0, 2 * Math.PI);
+    this.ctx.arc(this.x + 6, this.y - 6, 4, 0, 2 * Math.PI);
     this.ctx.fillStyle = "rgb(255, 255, 255)";
+    this.ctx.fill();
+    this.ctx.closePath();
+
+    //--inner eyes
+    this.ctx.beginPath();
+    // ctx.arc(x, y, radius, startAngle, endAngle)
+    this.ctx.arc(this.x - 6, this.y - 8, 2, 0, 2 * Math.PI);
+    this.ctx.fillStyle = "rgb(0, 0, 0)";
+    this.ctx.fill();
+    this.ctx.closePath();
+
+    this.ctx.beginPath();
+    this.ctx.arc(this.x + 6, this.y - 8, 2, 0, 2 * Math.PI);
+    this.ctx.fillStyle = "rgb(0, 0, 0)";
     this.ctx.fill();
     this.ctx.closePath();
     //----------------------------------
