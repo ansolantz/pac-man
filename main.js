@@ -3,6 +3,8 @@ console.log('main');
 // document.addEventListener("DOMContentLoaded", function (event) {
 //   main();
 // });
+
+
 function main() {
 
   const mainElement = document.querySelector('main');
@@ -12,6 +14,22 @@ function main() {
     mainElement.innerHTML = html;
     return mainElement;
   }
+
+  function buildIntro() {     // Building intro screen
+    const introScreen = buildDom(`
+      <section>
+      <img src="img/pacman-intro.jpg" id="startimage">
+      </section>
+      `);
+
+    const startImage = document.querySelector('#startimage');
+
+
+
+    startImage.addEventListener('click', buildSplashScreen)
+  }
+
+
 
   function buildSplashScreen() {     // Building splash screen
     const splashScreen = buildDom(`
@@ -24,8 +42,9 @@ function main() {
     const startButton = document.querySelector('.start-button');
 
     //Playing sound
-    // const soundBeginning = new Audio('sounds/pacman_beginning.wav');
-    // soundBeginning.play();
+    const soundBeginning = new Audio('sounds/pacman_beginning.wav');
+    soundBeginning.play();
+
 
     startButton.addEventListener('click', buildGameScreen)
   }
@@ -80,12 +99,15 @@ function main() {
     } else {
       pacmanWonDiv.innerHTML = 'Sorry!'
     }
-
+    const soundBeginning = new Audio('sounds/pacman_beginning.wav');
+    soundBeginning.play();
     restartButton.addEventListener('click', buildGameScreen);
   }
 
-  buildSplashScreen();  //Hiding splash while developing..
+  //buildSplashScreen();  //Hiding splash while developing..
   //buildGameScreen();
+  buildIntro();
 }
 
 window.addEventListener('load', main);
+
