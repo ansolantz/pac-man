@@ -39,7 +39,9 @@ h1 {
   color: Yellow;
   font-size: 50px;
   padding: 5px;
-  text-shadow: 2px 2px #ffffff;
+  /* margin: 10px 0 10px 0; */
+  /* text-shadow: 2px 2px #ffffff; */
+  text-shadow: 2px 0 0 #000, -2px 0 0 #000, 0 2px 0 #000, 0 -2px 0 #000, 1px 1px #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000;
 }
 
 h2 {
@@ -49,6 +51,7 @@ h2 {
   font-weight: 200;
   font-size: 30px;
   padding: 5px;
+  border: 1px solid #000000;
 }
 
 h3 {}
@@ -78,10 +81,11 @@ section {
 /* ---- CLASSES ---- */
 
 .titleSign {
-  /* width: 350px;
+  width: 350px;
   background-color: #f67622;
-  border: 1px solid #f80126;
-  border-radius: 20px; */
+  border: 5px solid #f80126;
+  border-radius: 20px;
+  margin: 20px 0 20px 0;
 }
 
 .section {
