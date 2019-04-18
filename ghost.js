@@ -1,5 +1,4 @@
 'use strict'
-console.log('ghost')
 
 class Ghost {
   constructor(x, y, canvas, color, ghostHitPacmanCallback) {
@@ -21,7 +20,6 @@ class Ghost {
 
   draw() {
 
-    //console.log('Drawing ghost');
     // ctx.arc(x, y, radius, startAngle, endAngle)
     //  Math.PI * 2 - Full circle    Math.PI * 1 -  Half circle
 
@@ -31,27 +29,6 @@ class Ghost {
     this.ctx.fill();
     this.ctx.closePath();
 
-
-    // TRIANGLE
-    // start the path
-    // this.ctx.beginPath();
-
-    // // change the fill style
-    // this.ctx.fillStyle = "rgb(255, 0, 144)";
-
-    // // starting position is x=150, y=200
-    // this.ctx.moveTo(this.x, this.y - 20);
-
-    // // draw the line that has final coordinates x=100, y=250
-    // this.ctx.lineTo(this.x - 30, this.y + 30);
-
-    // // draw the line that has final coordinates x=200, y=250 
-    // this.ctx.lineTo(this.x + 30, this.y + 30);
-
-    // // fills the shape and closes the path automatically
-    // this.ctx.fill();
-    // // close the path
-    // this.ctx.closePath();
 
     // Drawing ghost eyes's -------------
     this.ctx.beginPath();
@@ -66,9 +43,8 @@ class Ghost {
     this.ctx.fill();
     this.ctx.closePath();
 
-    //--inner eyes
+    //--Inner eye's ----------------------
     this.ctx.beginPath();
-    // ctx.arc(x, y, radius, startAngle, endAngle)
     this.ctx.arc(this.x - 6, this.y - 8, 2, 0, 2 * Math.PI);
     this.ctx.fillStyle = "rgb(0, 0, 0)";
     this.ctx.fill();
@@ -80,6 +56,29 @@ class Ghost {
     this.ctx.fill();
     this.ctx.closePath();
     //----------------------------------
+
+
+    //--Lower Body --------------------
+
+    this.ctx.beginPath();
+    this.ctx.arc(this.x - 9, this.y + 11, 6, 0, 2 * Math.PI);
+    this.ctx.fillStyle = this.ctx.fillStyle = this.color;
+    this.ctx.fill();
+    this.ctx.closePath();
+
+    this.ctx.beginPath();
+    this.ctx.arc(this.x, this.y + 11, 6, 0, 2 * Math.PI);
+    this.ctx.fillStyle = this.ctx.fillStyle = this.color;
+    this.ctx.fill();
+    this.ctx.closePath();
+
+    this.ctx.beginPath();
+    this.ctx.arc(this.x + 9, this.y + 11, 6, 0, 2 * Math.PI);
+    this.ctx.fillStyle = this.ctx.fillStyle = this.color;
+    this.ctx.fill();
+    this.ctx.closePath();
+
+    ///------------------------------
 
   }
 
@@ -130,7 +129,7 @@ class Ghost {
     let imageData = [];
     let pixelArray = [];
     //ctx.getImageData(startCuX, startCutY, numberOfPixelsToCutX, numberOfPixelsToCutY;
-    //Cutting out an array of pixels in front of PacMan for each move depending on direction.
+    //Cutting out an array of pixels in front of ghost for each move depending on direction.
     if (this.direction === 'right') {
       imageData = this.ctx.getImageData(this.x + this.ghostRadius, this.y - this.ghostRadius, 1, this.ghostRadius * 2);
     } else if (this.direction === 'up') {

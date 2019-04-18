@@ -89,7 +89,7 @@ function main() {
     <section>
     <h2>Game Over</h2>
     <div id="pacman-won"></div>
-    <button class="restart-button">Restart</buton>
+    <button class="restart-button button">Restart</buton>
     </section>
     `);
     const pacmanWonDiv = document.querySelector('#pacman-won');
