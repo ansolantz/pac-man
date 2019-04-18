@@ -24,7 +24,6 @@ function () {
     this.canvas = canvas;
     this.gameOverCallback = gameOverCallback;
     this.livesDiv = livesDiv;
-    this.soundBeginning = new Audio('sounds/pacman_beginning.wav');
     this.pacmanDeath = new Audio('sounds/pacman_death.wav');
     this.pacmanChomp = new Audio('sounds/pacman_chomp.wav');
     this.candies.push(new Candy(66, 18, this.canvas));
@@ -45,7 +44,7 @@ function () {
     this.candies.push(new Candy(66, 181, this.canvas));
     this.candies.push(new Candy(164, 165, this.canvas));
     this.candies.push(new Candy(312, 181, this.canvas));
-    this.candies.push(new Candy(410, 181, this.canvas)); //Create 4 ghosts i array
+    this.candies.push(new Candy(410, 181, this.canvas)); //Create 4 ghosts in array
 
     this.ghosts.push(new Ghost(230, 200, this.canvas, 'rgb(255, 138, 170', function () {
       return _this.ghostHitPacman();
@@ -62,8 +61,9 @@ function () {
     // this.pacman = new PacMan(50, 50, this.canvas, myCandyEatenArrowFunction);
     // --- Sending Arrow Function  to not loose context of this ----- //
     //https://stackoverflow.com/questions/20279484/how-to-access-the-correct-this-inside-a-callback
+    // starting at 25, 25 working  25, 215,
 
-    this.pacman = new PacMan(25, 25, this.canvas, function (candyX, candyY) {
+    this.pacman = new PacMan(25, 215, this.canvas, function (candyX, candyY) {
       _this.candyEaten(candyX, candyY);
     }, function () {
       return _this.pacManHitGhost();
@@ -155,12 +155,14 @@ function () {
     key: "ghostHitPacman",
     value: function ghostHitPacman() {
       console.log('Hahah got ya!');
-      this.setGhostStartPositions();
-      this.pacman.lifeLost(); //this.pacman.startImmortal();
+      this.pacman.lifeLost();
+      this.pacmanDeath.play(); //this.pacman.startImmortal();
 
       if (this.pacman.lives === 0) {
         this.gameOver = true;
         this.gameOverCallback(false);
+      } else {
+        this.startLostLifeTimer();
       }
 
       this.livesDiv.innerHTML = "".concat(this.pacman.lives, " UP");
@@ -169,13 +171,14 @@ function () {
     key: "pacManHitGhost",
     value: function pacManHitGhost() {
       console.log('Oh no!!');
-      this.setGhostStartPositions();
       this.pacman.lifeLost();
-      this.startLostLifeTimer();
+      this.pacmanDeath.play();
 
       if (this.pacman.lives === 0) {
         this.gameOver = true;
         this.gameOverCallback(false);
+      } else {
+        this.startLostLifeTimer();
       }
 
       this.livesDiv.innerHTML = "".concat(this.pacman.lives, " UP");
@@ -205,10 +208,20 @@ function () {
   }, {
     key: "startLostLifeTimer",
     value: function startLostLifeTimer() {
+      var _this3 = this;
+
       console.log('Pac Man lost a life');
+      this.ghosts.forEach(function (ghost) {
+        ghost.hideGhost();
+      });
+      this.pacman.hidePackMan();
       setTimeout(function () {
         console.log('Waiting...');
-      }, 5000);
+
+        _this3.pacman.setStartPosition();
+
+        _this3.setGhostStartPositions();
+      }, 3000);
     }
   }, {
     key: "setGameOver",

@@ -58,6 +58,7 @@ function () {
         return;
       }
 
+      this.checkTelePort();
       this.moveX = 0;
       this.moveY = 0;
 
@@ -86,6 +87,12 @@ function () {
         _this.color = 'rgb(255, 255, 1)';
         console.log('Not immortal!');
       }, 5000);
+    }
+  }, {
+    key: "hidePackMan",
+    value: function hidePackMan() {
+      this.x = -100;
+      this.y = -100;
     }
   }, {
     key: "draw",
@@ -241,23 +248,15 @@ function () {
       return found;
     }
   }, {
-    key: "checkWall",
-    value: function checkWall() {
+    key: "checkTelePort",
+    value: function checkTelePort() {
       if (this.direction === 'right') {
         if (this.x + this.pacManRadius + this.speed >= parseInt(this.canvas.width)) {
-          return true;
-        }
-      } else if (this.direction === 'up') {
-        if (this.y - this.pacManRadius <= 0) {
-          return true;
+          this.x = this.pacManRadius * 2 - 1;
         }
       } else if (this.direction === 'left') {
         if (this.x - this.pacManRadius <= 0) {
-          return true;
-        }
-      } else if (this.direction === 'down') {
-        if (this.y + this.pacManRadius + this.speed >= parseInt(this.canvas.height)) {
-          return true;
+          this.x = 476 - this.pacManRadius * 2 + 1;
         }
       }
     }
@@ -271,13 +270,19 @@ function () {
       }
     }
   }, {
-    key: "lifeLost",
-    value: function lifeLost() {
+    key: "setStartPosition",
+    value: function setStartPosition() {
+      // this.x = 25;
+      // this.y = 25;
       this.x = 25;
-      this.y = 25;
+      this.y = 215;
       this.isMouthClosing = true;
       this.animationCounter = 0;
       this.direction = null;
+    }
+  }, {
+    key: "lifeLost",
+    value: function lifeLost() {
       this.lives--;
       console.log('Life: ', this.lives);
     }

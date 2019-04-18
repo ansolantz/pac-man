@@ -6,8 +6,6 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-console.log('ghost');
-
 var Ghost =
 /*#__PURE__*/
 function () {
@@ -33,40 +31,52 @@ function () {
   _createClass(Ghost, [{
     key: "draw",
     value: function draw() {
-      //console.log('Drawing ghost');
       // ctx.arc(x, y, radius, startAngle, endAngle)
       //  Math.PI * 2 - Full circle    Math.PI * 1 -  Half circle
       this.ctx.beginPath();
       this.ctx.arc(this.x, this.y, this.ghostRadius, 0, 2 * Math.PI);
       this.ctx.fillStyle = this.color;
       this.ctx.fill();
-      this.ctx.closePath(); // TRIANGLE
-      // start the path
-      // this.ctx.beginPath();
-      // // change the fill style
-      // this.ctx.fillStyle = "rgb(255, 0, 144)";
-      // // starting position is x=150, y=200
-      // this.ctx.moveTo(this.x, this.y - 20);
-      // // draw the line that has final coordinates x=100, y=250
-      // this.ctx.lineTo(this.x - 30, this.y + 30);
-      // // draw the line that has final coordinates x=200, y=250 
-      // this.ctx.lineTo(this.x + 30, this.y + 30);
-      // // fills the shape and closes the path automatically
-      // this.ctx.fill();
-      // // close the path
-      // this.ctx.closePath();
-      // Drawing ghost eyes's -------------
+      this.ctx.closePath(); // Drawing ghost eyes's -------------
 
       this.ctx.beginPath();
-      this.ctx.arc(this.x - 6, this.y - 6, 3, 0, 2 * Math.PI);
+      this.ctx.arc(this.x - 6, this.y - 6, 4, 0, 2 * Math.PI);
       this.ctx.fillStyle = "rgb(255, 255, 255)";
       this.ctx.fill();
       this.ctx.closePath();
       this.ctx.beginPath();
-      this.ctx.arc(this.x + 6, this.y - 6, 3, 0, 2 * Math.PI);
+      this.ctx.arc(this.x + 6, this.y - 6, 4, 0, 2 * Math.PI);
       this.ctx.fillStyle = "rgb(255, 255, 255)";
       this.ctx.fill();
+      this.ctx.closePath(); //--Inner eye's ----------------------
+
+      this.ctx.beginPath();
+      this.ctx.arc(this.x - 6, this.y - 8, 2, 0, 2 * Math.PI);
+      this.ctx.fillStyle = "rgb(0, 0, 0)";
+      this.ctx.fill();
+      this.ctx.closePath();
+      this.ctx.beginPath();
+      this.ctx.arc(this.x + 6, this.y - 8, 2, 0, 2 * Math.PI);
+      this.ctx.fillStyle = "rgb(0, 0, 0)";
+      this.ctx.fill();
       this.ctx.closePath(); //----------------------------------
+      //--Lower Body --------------------
+
+      this.ctx.beginPath();
+      this.ctx.arc(this.x - 9, this.y + 11, 6, 0, 2 * Math.PI);
+      this.ctx.fillStyle = this.ctx.fillStyle = this.color;
+      this.ctx.fill();
+      this.ctx.closePath();
+      this.ctx.beginPath();
+      this.ctx.arc(this.x, this.y + 11, 6, 0, 2 * Math.PI);
+      this.ctx.fillStyle = this.ctx.fillStyle = this.color;
+      this.ctx.fill();
+      this.ctx.closePath();
+      this.ctx.beginPath();
+      this.ctx.arc(this.x + 9, this.y + 11, 6, 0, 2 * Math.PI);
+      this.ctx.fillStyle = this.ctx.fillStyle = this.color;
+      this.ctx.fill();
+      this.ctx.closePath(); ///------------------------------
     }
   }, {
     key: "randomDirection",
@@ -116,7 +126,7 @@ function () {
     value: function checkIfCanMove() {
       var imageData = [];
       var pixelArray = []; //ctx.getImageData(startCuX, startCutY, numberOfPixelsToCutX, numberOfPixelsToCutY;
-      //Cutting out an array of pixels in front of PacMan for each move depending on direction.
+      //Cutting out an array of pixels in front of ghost for each move depending on direction.
 
       if (this.direction === 'right') {
         imageData = this.ctx.getImageData(this.x + this.ghostRadius, this.y - this.ghostRadius, 1, this.ghostRadius * 2);
@@ -158,6 +168,12 @@ function () {
 
 
       return true;
+    }
+  }, {
+    key: "hideGhost",
+    value: function hideGhost() {
+      this.x = -100;
+      this.y = -100;
     }
   }, {
     key: "checkColor",

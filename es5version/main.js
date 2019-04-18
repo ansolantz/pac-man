@@ -12,10 +12,20 @@ function main() {
     return mainElement;
   }
 
+  function buildIntro() {
+    // Building intro screen
+    var introScreen = buildDom("\n      <section>\n      <img src=\"img/pacman-intro.jpg\" id=\"startimage\">\n      </section>\n      ");
+    var startImage = document.querySelector('#startimage');
+    startImage.addEventListener('click', buildSplashScreen);
+  }
+
   function buildSplashScreen() {
     // Building splash screen
-    var splashScreen = buildDom("\n      <section>\n      <h2>Click start to play</h2>\n      <button class=\"start-button\">Start</button>\n      </section>\n      ");
-    var startButton = document.querySelector('.start-button');
+    var splashScreen = buildDom("\n      <section>\n      <h2>Ready!</h2>\n      <button class=\"start-button\">Start</button>\n      </section>\n      ");
+    var startButton = document.querySelector('.start-button'); //Playing sound
+
+    var soundBeginning = new Audio('sounds/pacman_beginning.wav');
+    soundBeginning.play();
     startButton.addEventListener('click', buildGameScreen);
   }
 
@@ -37,21 +47,24 @@ function main() {
 
   function buildGameOverScreen(pacmanWon) {
     // console.log('game over');
-    var gameOverScreen = buildDom("\n    <section>\n    <h2>Game Over</h2>\n    <div id=\"pacman-won\"></div>\n    <button class=\"restart-button\">Restart</buton>\n    </section>\n    ");
+    var gameOverScreen = buildDom("\n    <section>\n    <h2>Game Over</h2>\n    <div id=\"pacman-won\"></div>\n    <button class=\"restart-button button\">Restart</buton>\n    </section>\n    <section>\n    <a href=\"http://anso.se/portfolio/snake.htm\" target=\"_blank\"><img src=\"img/easter-egg.png\" id=\"easter-egg\"></a>\n    </section>\n    ");
     var pacmanWonDiv = document.querySelector('#pacman-won');
     var restartButton = document.querySelector('.restart-button');
 
     if (pacmanWon) {
-      pacmanWonDiv.innerHTML = 'Yey Pac Man won!!';
+      pacmanWonDiv.innerHTML = 'Pac Man won!';
     } else {
-      pacmanWonDiv.innerHTML = 'Sorry!! Pac Man looses';
+      pacmanWonDiv.innerHTML = 'Sorry!';
     }
 
+    var soundBeginning = new Audio('sounds/pacman_beginning.wav');
+    soundBeginning.play();
     restartButton.addEventListener('click', buildGameScreen);
   } //buildSplashScreen();  //Hiding splash while developing..
+  //buildGameScreen();
 
 
-  buildGameScreen();
+  buildIntro();
 }
 
 window.addEventListener('load', main);
