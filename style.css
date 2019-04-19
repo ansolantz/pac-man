@@ -93,6 +93,13 @@ section {
   padding-top: 20px;
 }
 
+.gameBorder {
+  width: 250px;
+  border: 7px double blue;
+  border-radius: 15px;
+  padding: 20px;
+}
+
 /* ---- ID's ---- */
 
 #site-header {
@@ -106,7 +113,7 @@ section {
   font-family: 'Arcade Classic', 'Courier New', Courier;
   color: #ffffff;
   font-size: 20px;
-  padding: 4px 0 4px 0;
+  padding: 10px 0 8px 0;
 }
 
 #pacman-won {

@@ -33,7 +33,7 @@ function main() {
 
   function buildSplashScreen() {     // Building splash screen
     const splashScreen = buildDom(`
-      <section>
+      <section class="gameBorder">
       <h2>Ready!</h2>
       <button class="start-button">Start</button>
       </section>
@@ -86,10 +86,10 @@ function main() {
   function buildGameOverScreen(pacmanWon) {
     // console.log('game over');
     const gameOverScreen = buildDom(`
-    <section>
+    <section class="gameBorder">
     <h2>Game Over</h2>
     <div id="pacman-won"></div>
-    <button class="restart-button button">Restart</buton>
+    <button class="restart-button button">Play again?</buton>
     </section>
     <section>
     <a href="http://anso.se/portfolio/snake.htm" target="_blank"><img src="img/easter-egg.png" id="easter-egg"></a>
