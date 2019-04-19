@@ -91,11 +91,14 @@ function main() {
     <div id="pacman-won"></div>
     <button class="restart-button button">Restart</buton>
     </section>
+    <section>
+    <a href="http://anso.se/portfolio/snake.htm" target="_blank"><img src="img/easter-egg.png" id="easter-egg"></a>
+    </section>
     `);
     const pacmanWonDiv = document.querySelector('#pacman-won');
     const restartButton = document.querySelector('.restart-button');
     if (pacmanWon) {
-      pacmanWonDiv.innerHTML = 'Pac Man won!'
+      pacmanWonDiv.innerHTML = 'Yey! Pac Man won!'
     } else {
       pacmanWonDiv.innerHTML = 'Sorry!'
     }
