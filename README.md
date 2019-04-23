@@ -1,8 +1,19 @@
 # Pac Man
 
 ## Description
+This was my firs project at Ironhac, Barcelona. The task was to develop a game with Javascript and DOM. I chosed to do a Pac Man game since I did some smiler games in the past and I wanted something mor challenging. 
 
+The game is developed on HTML canvas. This was my firs time using canvas an I it was a real challenge. The hardest part was to check the collisions. As Pac Man is trapped, he always have to check every move he makes. To detect the different collisions (walls, ghost, candy) I used the getImageData() Method. I cuted out a 1px wide array from the canvas in front of Pac Man. So it was like he had a plow in front of him for every move. There I checked the color code in the array for every move. With the candy, I also needed to add a 'standard' collision detection, since I needed the x and y positions to be able to delete them from the array.
+
+All characters on the game is drawn on the canvas (did not use any images). To get the chewing effect on Pac Man I did a complete animation where I draw his mouth opening 1° in every frame of the loop and then closing again.
+
+The level field i also drawn on the canvas, this is one thing that needs to bee improved (with a loop) since doing it this way was very time consuming.
+
+
+## About the game
 A Pac Man game where Pac Man should eat all the candy (dots) placed on the game board, without being hit by a ghost.
+
+
 
 
 ## MVP(DOM - CANVAS)
@@ -29,7 +40,7 @@ Limitations:
 ## Data structure
 Classes and methods definition.
 
-The first version be in ES6 because there are so many things to solve and I want to use the latest tools. However if there is time left in the end, I might make a version of one or more classes (for instance the PacMan class) using prototypes as well just to show the two alternatives. The behaviour should be exactly the same for the game.
+The first version is made in ES6 because there are so many things to solve and I want to use the latest tools. However if there is time left in the end, I might make a version of one or more classes (for instance the PacMan class) using prototypes as well just to show the two alternatives. The behaviour should be exactly the same for the game.
 
 ### main.js
 This file will setup the different screens depending on the user action.
@@ -158,16 +169,16 @@ Task definition in order of priority
 ## Links
 
 
+
+### Git
+URls for the project repo and deploy
+[Link Deploy](http://ansolantz.github.io/pac-man)
+[Link Repo](https://github.com/ansolantz/pac-man)
+
 ### Trello
 [Link url](https://trello.com/b/z2mpVWIB/pacman)
+ 
 
-
-  ### Git
-URls for the project repo and deploy
-[Link Repo](http://github.com)
-  [Link Deploy](http://github.com)
-
-
-    ### Slides
+### Slides
 URls for the project presentation(slides)
-[Link Slides.com](http://slides.com)
+[Link Slides.com](https://docs.google.com/presentation/d/1RWjV4MggI2Rnnka1X8exWezDW-TD17njPqTiqvsYAKI/edit?usp=sharing)
