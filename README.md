@@ -1,20 +1,21 @@
 # Pac Man
 
 ## Description
-This was my firs project at Ironhac, Barcelona. The task was to develop a game with Javascript and DOM. I chosed to do a Pac Man game since I did some smiler games in the past and I wanted something mor challenging. 
+This was the first individual project at Ironhack, Barcelona. The task was to develop a game using pure Javascript, CSS, HTML and the deadline was 5 working days. 
 
-The game is developed on HTML canvas. This was my firs time using canvas an I it was a real challenge. The hardest part was to check the collisions. As Pac Man is trapped, he always have to check every move he makes. To detect the different collisions (walls, ghost, candy) I used the getImageData() Method. I cuted out a 1px wide array from the canvas in front of Pac Man. So it was like he had a plow in front of him for every move. There I checked the color code in the array for every move. With the candy, I also needed to add a 'standard' collision detection, since I needed the x and y positions to be able to delete them from the array.
+I choose to build a Pacman game using a raw html canvas, no grids or images, everything is painted and animated in each frame, something that was much more challenging than anticipated but the end result is a much smoother game than most other html implementations out there.
 
-All characters on the game is drawn on the canvas (did not use any images). To get the chewing effect on Pac Man I did a complete animation where I draw his mouth opening 1° in every frame of the loop and then closing again.
+You can play the game here [Link Deploy](http://ansolantz.github.io/pac-man)
 
-The level field i also drawn on the canvas, this is one thing that needs to bee improved (with a loop) since doing it this way was very time consuming.
+The main challenges were:
+1. Animating pacmans mouth opening and closing but with some help from the arc drawing tool it was quite quick to solve.
+2. Detecting collisions. My solution for this was to cut out a 1px wide rectangle in front of pacman and the ghosts. This serves as a snowplough checking the next frame and thanks to this collision detection can be done by just checking the pixel color for 32 pixels (the height) for each sprite. Candy collision detection uses a more traditional method since when pacman eat the candy, we only have the approximate position.
+3. Building the maze. Everything is pixel perfect meaning that the width of the path pacman and the ghosts move around in is exactly the size of the sprites. This is nice since they can not turn and face a wall (like the real game). This however required that all paths in the maze had exactly the right size something that took quite some time to get right and that is the reason the maze is not bigger than it is due to the time constraints.
 
 
+# Prework and planning
 ## About the game
 A Pac Man game where Pac Man should eat all the candy (dots) placed on the game board, without being hit by a ghost.
-
-
-
 
 ## MVP(DOM - CANVAS)
 
