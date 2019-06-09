@@ -7,8 +7,7 @@ I choose to build a ES6 PacMan game using a raw html canvas, no grids or images,
 
 You can play the game [here](http://ansolantz.github.io/pac-man)
 
-
-![PacMan](../pac-man/img/game-1.jpg)
+![PacMan](./img/game-1.jpg)
 
 
 ### The main challenges were:
@@ -45,12 +44,4 @@ Definition of the different states and their transition(transition functions)
     - buildGameOver()
     - addEventListener(startGame) 
 
-
-
-
-## Links
-
-### Git
-[Link Deploy](http://ansolantz.github.io/pac-man)
-[Link Repo](https://github.com/ansolantz/pac-man)
 
